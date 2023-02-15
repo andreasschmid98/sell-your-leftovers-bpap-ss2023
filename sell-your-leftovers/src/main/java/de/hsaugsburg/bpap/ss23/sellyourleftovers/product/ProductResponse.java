@@ -1,6 +1,6 @@
-package de.hsaugsburg.bpap.ss23.sellyourleftovers.dto;
+package de.hsaugsburg.bpap.ss23.sellyourleftovers.product;
 
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Category;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +15,10 @@ import java.math.BigDecimal;
 public class ProductResponse {
     private Long id;
     private String name;
+    private String skuCode;
     private String description;
     private BigDecimal price;
+    private Integer quantity;
     private Category category;
+
 }

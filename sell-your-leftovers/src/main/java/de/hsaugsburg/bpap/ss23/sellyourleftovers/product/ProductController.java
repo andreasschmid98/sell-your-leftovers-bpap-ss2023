@@ -1,10 +1,6 @@
-package de.hsaugsburg.bpap.ss23.sellyourleftovers.controller;
+package de.hsaugsburg.bpap.ss23.sellyourleftovers.product;
 
 
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.ProductRequest;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.ProductResponse;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.service.ProductService;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +16,9 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody ProductRequest productRequest){
+    public String createProduct(@RequestBody ProductRequest productRequest){
         productService.createProduct(productRequest);
+        return "Product created successfully";
     }
 
     @GetMapping

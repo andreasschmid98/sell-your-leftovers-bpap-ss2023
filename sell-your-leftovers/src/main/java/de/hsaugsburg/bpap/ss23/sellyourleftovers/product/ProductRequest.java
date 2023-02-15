@@ -1,6 +1,6 @@
-package de.hsaugsburg.bpap.ss23.sellyourleftovers.model;
+package de.hsaugsburg.bpap.ss23.sellyourleftovers.product;
 
-import jakarta.persistence.*;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,21 +8,17 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Entity()
-@Table(name = "products")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ProductRequest {
     private String name;
+    private String skuCode;
     private String description;
     private BigDecimal price;
-
-    @ManyToOne
     private Category category;
+    private Integer quantity;
 }
+
+

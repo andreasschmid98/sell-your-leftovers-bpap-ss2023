@@ -1,16 +1,13 @@
-package de.hsaugsburg.bpap.ss23.sellyourleftovers.service;
+package de.hsaugsburg.bpap.ss23.sellyourleftovers.product;
 
 
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.ProductRequest;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.ProductResponse;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Product;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +19,10 @@ public class ProductService {
     public void createProduct(ProductRequest productRequest){
         Product product = Product.builder()
                 .name(productRequest.getName())
+                .skuCode(UUID.randomUUID().toString())
                 .description(productRequest.getDescription())
                 .price(productRequest.getPrice())
+                .quantity(productRequest.getQuantity())
                 .build();
 
         productRepository.save(product);
@@ -39,7 +38,9 @@ public class ProductService {
         return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
+                .skuCode(product.getSkuCode())
                 .description(product.getDescription())
+                .quantity(product.getQuantity())
                 .price(product.getPrice())
                 .build();
     }
