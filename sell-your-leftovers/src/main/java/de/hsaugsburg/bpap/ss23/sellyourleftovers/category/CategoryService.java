@@ -1,8 +1,5 @@
-package de.hsaugsburg.bpap.ss23.sellyourleftovers.service;
+package de.hsaugsburg.bpap.ss23.sellyourleftovers.category;
 
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.CategoryResponse;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Category;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

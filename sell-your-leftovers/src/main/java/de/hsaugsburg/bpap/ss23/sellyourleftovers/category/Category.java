@@ -1,4 +1,4 @@
-package de.hsaugsburg.bpap.ss23.sellyourleftovers.model;
+package de.hsaugsburg.bpap.ss23.sellyourleftovers.category;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

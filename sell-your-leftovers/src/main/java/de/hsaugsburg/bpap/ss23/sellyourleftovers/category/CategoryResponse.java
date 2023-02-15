@@ -1,6 +1,6 @@
-package de.hsaugsburg.bpap.ss23.sellyourleftovers.dto;
+package de.hsaugsburg.bpap.ss23.sellyourleftovers.category;
 
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Category;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.category.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
