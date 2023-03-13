@@ -1,19 +1,18 @@
 package de.hsaugsburg.bpap.ss23.sellyourleftovers;
 
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.category.Category;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.category.CategoryRepository;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.category.CategoryService;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.product.Product;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.product.ProductRepository;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.product.ProductService;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.security.user.User;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.security.user.UserRepository;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Category;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.CategoryRepository;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Product;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.ProductRepository;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.User;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 @Component
 @RequiredArgsConstructor
@@ -27,16 +26,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-        userRepository.save(
-                new User(1L,
-                        "Andreas",
-                        "Schmid",
-                        "schmidandreas.ul@gmail.com",
-                        passwordEncoder.encode("test"),
-                        null)
-        );
-
+        
         Category beer = new Category(1L, Category.CategoryType.BEER, "Bier");
         Category wine = new Category(2L, Category.CategoryType.WINE, "Wein");
         Category spirits = new Category(3L, Category.CategoryType.SPIRITS, "Spirituosen");
