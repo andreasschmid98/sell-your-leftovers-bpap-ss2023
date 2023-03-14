@@ -1,0 +1,1 @@
+insert into t_user (first_name, last_name, email, password) values ('TEST_FIRST_NAME', 'TEST_LAST_NAME', 'test@test.com', '$2a$12$erBGcoRs4IS1IR3KHOz8yOgpVQFte9mdBAYCGK453XlQLtiAcjNMG');

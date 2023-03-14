@@ -9,13 +9,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "categories")
+@Table(name = "t_category")
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "category_type")
     private CategoryType categoryType;
+
+    @Column(name = "name")
     private String name;
 
     @Override

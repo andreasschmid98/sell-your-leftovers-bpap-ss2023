@@ -2,6 +2,7 @@ package de.hsaugsburg.bpap.ss23.sellyourleftovers.service;
 
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.LoginRequest;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.RegisterRequest;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.error.exception.EmailAlreadyTakenException;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.User;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +43,7 @@ public class UserService implements UserDetailsService {
     public ResponseEntity<?> register(RegisterRequest registerRequest) {
 
         if(userRepository.existsByEmail(registerRequest.getEmail())){
-            return ResponseEntity.badRequest().body("Email is already taken");
+            throw new EmailAlreadyTakenException("User with this Email does already exists");
         }
 
         User user = mapRegisterDtoToUser(registerRequest);
