@@ -1,7 +1,5 @@
 package de.hsaugsburg.bpap.ss23.sellyourleftovers.error;
 
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.error.ApiError;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.error.ResponseEntityBuilder;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.error.exception.EmailAlreadyTakenException;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.error.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
