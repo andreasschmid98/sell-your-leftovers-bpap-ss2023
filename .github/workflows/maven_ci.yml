@@ -18,6 +18,4 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
       - name: Build with Maven
-        run: |
-        cd sell-your-leftovers
-        mvn clean install
+        run: cd sell-your-leftovers mvn clean install
