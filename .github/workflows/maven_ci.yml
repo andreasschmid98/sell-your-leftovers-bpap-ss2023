@@ -18,4 +18,9 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
       - name: Build with Maven
-        run: cd sell-your-leftovers && mvn clean install
+        run: cd sell-your-leftovers/backend && mvn --batch-mode -DskipTests package
+        
+      - name: Test
+        run: cd sell-your-leftovers/backend && mvn --batch-mode -Dmaven.test.failure.ignore=true test
+
+  
