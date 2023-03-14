@@ -1,6 +1,5 @@
 package de.hsaugsburg.bpap.ss23.sellyourleftovers;
 
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,9 +22,6 @@ public class CategoryControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
 
     @Test
     public void testGetAllCategories() throws Exception {
