@@ -9,10 +9,12 @@ import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+@Component
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
