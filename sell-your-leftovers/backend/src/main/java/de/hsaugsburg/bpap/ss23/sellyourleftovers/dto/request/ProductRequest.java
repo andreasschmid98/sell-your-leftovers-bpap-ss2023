@@ -16,8 +16,9 @@ public class ProductRequest {
     private String name;
     private String skuCode;
     private String description;
+    private String imageUrl;
     private BigDecimal price;
-    private Category category;
+    private Category.CategoryType categoryType;
     private Integer quantity;
 }
 

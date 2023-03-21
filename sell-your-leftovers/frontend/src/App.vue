@@ -1,22 +1,41 @@
 <template>
-  <h1>Test</h1>
+
+  <header>
+    <NavBar/>
+  </header>
+  <main>
+    <router-view/>
+    <Footer/>
+  </main>
+
 </template>
 
 <script>
 
+import Footer from '@/components/Footer.vue';
+import NavBar from "@/components/NavBar.vue";
+
 export default {
-  name: 'App',
-  components: {}
+  name: "App", // Renaming the app so it won't conflict with the child component
+  components: {
+    Footer,
+    NavBar
+  }
 }
+
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+html {
+  height: 100%;
+  box-sizing: border-box;
 }
+
+body {
+  min-height: 100%;
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+}
+
 </style>

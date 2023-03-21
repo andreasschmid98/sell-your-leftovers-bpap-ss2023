@@ -37,10 +37,10 @@ public class DataInitializer implements CommandLineRunner {
         categoryRepository.save(spirits);
         categoryRepository.save(nonAlcoholic);
 
-        productRepository.save(new Product(1L,"A1","Coca Cola", "0.5 Liter originale Coca Cola",new BigDecimal(2), 10,nonAlcoholic));
-        productRepository.save(new Product(2L,"B2","Riegele Urhell", "0.5 Liter originales Riegele Helles",new BigDecimal(1.7), 5, beer));
-        productRepository.save(new Product(3L,"C3","Sonnenhof Samtrot fruchtsüß","0.7 Liter Sonnenhofer Rotwein",new BigDecimal(4.99), 20,wine));
-        productRepository.save(new Product(4L,"D4","Absolut Vodka", "Hochprozentiger Wodka",new BigDecimal(9.99), 2,spirits));
+        productRepository.save(new Product(1L,"A1","Coca Cola", "https://picsum.photos/200/300","0.5 Liter originale Coca Cola",new BigDecimal(2), 10, Category.CategoryType.NONALCOHOLIC));
+        productRepository.save(new Product(2L,"B2","Riegele Urhell", "https://picsum.photos/200/300","0.5 Liter originales Riegele Helles",new BigDecimal(1.7), 5, Category.CategoryType.BEER));
+        productRepository.save(new Product(3L,"C3","Sonnenhof Samtrot fruchtsüß","https://picsum.photos/200/300","0.7 Liter Sonnenhofer Rotwein",new BigDecimal(4.99), 20, Category.CategoryType.WINE));
+        productRepository.save(new Product(4L,"D4","Absolut Vodka", "https://picsum.photos/200/300","Hochprozentiger Wodka",new BigDecimal(9.99), 2, Category.CategoryType.SPIRITS));
 
         userRepository.save(new User(1L, "Andreas","Schmid", "schmidandreas.ul@gmail.com", passwordEncoder.encode("test"), null, new ArrayList<>()));
         userRepository.save(new User(2L, "Andreas","Schmid", "test@test.com",passwordEncoder.encode("test"),null, new ArrayList<>()));

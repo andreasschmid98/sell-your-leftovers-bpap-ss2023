@@ -27,7 +27,9 @@ public class ProductService {
         Product product = Product.builder()
                 .name(productRequest.getName())
                 .skuCode(UUID.randomUUID().toString())
+                .imageUrl(productRequest.getImageUrl())
                 .description(productRequest.getDescription())
+                .categoryType(productRequest.getCategoryType())
                 .price(productRequest.getPrice())
                 .quantity(productRequest.getQuantity())
                 .build();
@@ -59,8 +61,10 @@ public class ProductService {
         return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
+                .imageUrl(product.getImageUrl())
                 .skuCode(product.getSkuCode())
                 .description(product.getDescription())
+                .categoryType(product.getCategoryType())
                 .quantity(product.getQuantity())
                 .price(product.getPrice())
                 .build();

@@ -27,6 +27,9 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Column(name = "description")
     private String description;
 
@@ -36,6 +39,6 @@ public class Product {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @ManyToOne
-    private Category category;
+    @Column(name = "category_type")
+    private Category.CategoryType categoryType;
 }
