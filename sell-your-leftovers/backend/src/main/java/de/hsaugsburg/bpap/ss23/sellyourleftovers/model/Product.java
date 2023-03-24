@@ -30,7 +30,7 @@ public class Product {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "LONGTEXT")
     private String description;
 
     @Column(name = "price")

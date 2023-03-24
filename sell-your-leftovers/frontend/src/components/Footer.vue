@@ -1,7 +1,7 @@
 <template>
-    <footer class="footer py-4 mt-3">
-      <p class="footer text-center">&copy; 2023 Sell Your Leftovers, Alle Rechte vorbehalten</p>
-    </footer>
+  <footer class="footer py-4 mt-3">
+    <p class="footer text-center">&copy; 2023 Sell Your Leftovers, Alle Rechte vorbehalten</p>
+  </footer>
 </template>
 
 <script>
@@ -11,7 +11,6 @@ export default {
 </script>
 
 <style scoped>
-
 .footer {
   background: #EEEEEE;;
   position: absolute;
@@ -19,5 +18,6 @@ export default {
   left: 0;
   right: 0;
 }
-
 </style>
+
+

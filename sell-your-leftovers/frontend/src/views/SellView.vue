@@ -1,35 +1,21 @@
 <template>
-  <div class="container my-5">
-    <vue-tabs>
-      <v-tab title="First tab">
-        First tab content
-      </v-tab>
-
-      <v-tab title="Second tab">
-        Second tab content
-      </v-tab>
-
-      <v-tab title="Third tab">
-        Third tab content
-      </v-tab>
-    </vue-tabs>
-  </div>
-
+  <v-card>
+    <v-tabs
+        v-model="tab"
+        color="deep-purple-accent-4"
+        align-tabs="center"
+    >
+      <v-tab  v-for="category in categories"
+              :key="category"> {{ category.name }}</v-tab>
+      <v-tab :value="2">Bestehendes Pro</v-tab>
+    </v-tabs>
+  </v-card>
 </template>
 
 <script>
 
-import {VueTabs, VTab} from 'vue-nav-tabs'
-export default {
-  name: 'BuyView',
-  components: {
-    VueTabs,
-    VTab
-  }
 
+export default {
+  name: 'SellView',
 }
 </script>
-
-<style scoped>
-
-</style>

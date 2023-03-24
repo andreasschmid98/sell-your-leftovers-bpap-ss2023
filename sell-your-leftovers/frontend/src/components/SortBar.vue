@@ -1,30 +1,42 @@
 <template>
-  <div class="row">
-    <div class="col d-flex justify-content-start">
-      <div class="dropdown">
-        <a id="btn-sort" class="btn btn-outline-dark dropdown-toggle" href="#" role="button"
-           data-bs-toggle="dropdown" aria-expanded="false">
-          Sortieren nach:
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="btn-sort">
-          <li><a class="dropdown-item"
-                 href="#">Preis
-            aufsteigend</a></li>
-          <li><a class="dropdown-item"
-                 href="#">Preis
-            absteigend</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
+  <v-menu>
+    <template v-slot:activator="{ props }">
+      <v-btn
+          class="bg-orange-darken-1"
+          v-bind="props"
+      >
+        Sortieren
+      </v-btn>
+    </template>
+    <v-list>
+      <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+          :value="index"
+          @click="onSort(item.event)"
+      >
+        <v-list-item-title>{{ item.order }}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-menu>
 </template>
 
 <script>
 export default {
-  name: "SortBar"
+  name: "SortBar",
+  data () {
+    return {
+      items: [
+        { order: 'Preis aufsteigend', event: 'price-ascending' },
+        { order: 'Preis absteigend', event: 'price-descending' }
+      ]
+    }
+  },
+  methods: {
+    onSort(event) {
+      this.$emit('on-sort', event)
+    }
+  }
 }
 </script>
 
-<style scoped>
-
-</style>

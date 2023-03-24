@@ -1,8 +1,28 @@
 <template>
-  <ul class="list-group">
-    <button type="button" @click="onCategory()" class="btn-category list-group-item list-group-item-action" aria-current="true">Alle</button>
-    <button type="button" @click="onCategory(category.categoryType)" class= "btn-category list-group-item list-group-item-action" v-for="category in categories" v-bind:key="category.id">{{ category.name }}</button>
-  </ul>
+  <v-card
+      class="mx-auto"
+      max-width="300"
+  >
+    <v-list class="bg-orange-darken-1">
+      <v-list-item-group>
+        <v-list-item @click="onCategory()">
+          <v-list-item-title>
+            Alle
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item
+            v-for="(category, i) in categories"
+            :key="i"
+            @click="onCategory(category.categoryType)"
+        >
+          <v-list-item-title>
+            {{ category.name }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list-item-group>
+
+    </v-list>
+  </v-card>
 </template>
 
 <script>
@@ -22,7 +42,7 @@ export default {
       });
     },
     onCategory(categoryType){
-      this.$parent.onCategory(categoryType);
+      this.$emit('on-category', categoryType)
     }
   },
   beforeMount() {
@@ -31,6 +51,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>

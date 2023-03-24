@@ -1,24 +1,12 @@
 <template>
-  <nav class="navbar navbar-expand px-2 py-3">
-    <router-link :to="{ name: 'home'}" class="navbar-brand text-white">Sell Your Leftovers</router-link>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <router-link :to="{ name: 'buy'}" class="nav-link text-white" >Einkaufen</router-link>
-        </li>
-        <li class="nav-item active">
-          <router-link :to="{ name: 'sell'}" class="nav-link text-white" >Verkaufen</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'faq'}" class="nav-link text-white">FAQ</router-link>
-        </li>
-      </ul>
-    </div>
-  </nav>
+    <v-app-bar class="bg-orange-darken-1">
+      <v-container class="fill-height d-flex align-center">
+        <v-btn :to="{ name: 'home'}"  style="text-decoration: none; color: inherit;">Startseite</v-btn>
+        <v-btn :to="{ name: 'buy'}" style="text-decoration: none; color: inherit;">Einkaufen</v-btn>
+        <v-btn :to="{ name: 'sell'}" style="text-decoration: none; color: inherit;">Verkaufen</v-btn>
+        <v-btn :to="{ name: 'faq'}" style="text-decoration: none; color: inherit;">FAQ</v-btn>
+      </v-container>
+    </v-app-bar>
 </template>
 
 <script>
@@ -27,10 +15,3 @@ export default {
 }
 </script>
 
-<style scoped>
-
-.navbar{
-  background: #5C6BC0;
-}
-
-</style>

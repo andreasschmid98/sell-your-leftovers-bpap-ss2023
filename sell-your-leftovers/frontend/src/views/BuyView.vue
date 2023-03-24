@@ -1,41 +1,28 @@
 <template>
-  <div class = "container mt-4">
+  <v-con>
     <div class="row">
       <div class="col-3 justify-content-end">
-        <input class="form-control me-3" type="text" v-model="searchQuery" placeholder="Suche" />
+        <v-text-field size="small" color="bg-orange-darken-1" class="fill-width" label="Suche" variant="outlined" v-model="searchQuery"></v-text-field>
       </div>
-      <div class="col d-flex justify-content-end">
-        <div class="dropdown">
-          <a id="btn-sort" class="btn btn-outline-dark dropdown-toggle" href="#" role="button"
-             data-bs-toggle="dropdown" aria-expanded="false">
-            Sortieren nach:
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="btn-sort">
-            <li><button @click="onPriceAscending" class="dropdown-item"
-                   href="#">Preis
-              aufsteigend</button></li>
-            <li><button @click="onPriceDescending" class="dropdown-item"
-                   href="#">Preis
-              absteigend</button></li>
-          </ul>
-        </div>
+      <div class="col d-flex justify-content-end mt-2">
+        <SortBar @on-sort="onSort"/>
       </div>
     </div>
     <div class="row row-cols-2 mt-4">
-        <div class="col-2">
-          <FilterBar/>
-        </div>
+      <div class="col-2">
+        <FilterBar @on-category="onCategory"/>
+      </div>
       <div class="col-10">
         <div class="row gy-4 justify-content-start">
           <div class="col-3" v-for="product in filteredProducts" v-bind:key="product.id">
             <div class="card-home card h-100  text-center ">
               <router-link :to="{ name: 'product', params: { id: product.id }}"><img alt="Card image cap"
-                                                                   id="img-top"
-                                                                   class="card-img-top"
-                                                                   :src="product.imageUrl"></router-link>
+                                                                                     id="img-top"
+                                                                                     class="card-img-top"
+                                                                                     :src="product.imageUrl"></router-link>
               <div class="card-body">
                 <h6 class="card-title text-center text-truncate m-b2"
-                    >{{ product.name}}</h6>
+                >{{ product.name}}</h6>
                 <hr>
                 <div class="d-flex justify-content-between">
                   <span><small>Preis:</small></span>
@@ -52,20 +39,22 @@
         </div>
       </div>
     </div>
-  </div>
+  </v-con>
 </template>
 
 <script>
 
 import ProductService from "@/services/ProductService";
 import FilterBar from "@/components/FilterBar.vue";
+import SortBar from "@/components/SortBar.vue";
 
 
 
 export default {
   name: 'BuyView',
   components: {
-    FilterBar
+    FilterBar,
+    SortBar
   },
   data(){
     return {
@@ -78,6 +67,18 @@ export default {
       ProductService.getAllProducts().then((response) => {
         this.products = response.data;
       });
+    },
+    onSort(event){
+      switch (event) {
+        case 'price-ascending':
+          this.onPriceAscending()
+          break
+        case 'price-descending':
+          this.onPriceDescending()
+          break
+        default:
+          break
+      }
     },
     onPriceAscending() {
       this.products = this.products.sort((a, b) => (a.price > b.price) ? 1 : -1)
@@ -110,7 +111,7 @@ export default {
 
 <style scoped>
 
-#img-top {
+.card-img-top {
   width: 100%;
   height: 15vw;
   object-fit: cover;
