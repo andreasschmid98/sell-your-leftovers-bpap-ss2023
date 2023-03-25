@@ -39,7 +39,7 @@ export default {
     getAllCategories(){
       CategoryService.getAllCategories().then((response) => {
         this.categories = response.data;
-      });
+      })
     },
     onCategory(categoryType){
       this.$emit('on-category', categoryType)

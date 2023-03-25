@@ -11,6 +11,10 @@ class ProductService{
     getProductById(id){
         return axios.get(PRODUCT_API_BASE_URL + "/" + id);
     }
+
+    createProduct(productRequest){
+        axios.post(PRODUCT_API_BASE_URL, productRequest, ).then(r => console.log(productRequest + r))
+    }
 }
 
 export default new ProductService();
