@@ -1,14 +1,16 @@
 <template>
   <v-app>
-    <v-container class="align-center">
-      <NavBar/>
-    </v-container>
+    <header v-show="!hide">
+      <v-container class="align-center">
+        <NavBar/>
+      </v-container>
+    </header>
     <v-main>
       <v-container>
         <router-view/>
       </v-container>
     </v-main>
-    <div class="my-6">
+    <div class="my-6" v-show="!hide">
       <Footer/>
     </div>
   </v-app>
@@ -23,6 +25,11 @@ export default {
   components: {
     Footer,
     NavBar
+  },
+  computed: {
+    hide () {
+      return this.$route.path === '/login' || this.$route.path === '/register';
+    }
   }
 }
 </script>

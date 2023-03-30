@@ -17,13 +17,6 @@
         <p class="subtitle-1 font-weight-thin">
           {{ product.description }}
         </p>
-        <v-select
-            v-model="quantity"
-            label="Anzahl"
-            :items="items"
-            variant="solo"
-        >
-        </v-select>
         <v-btn class="primary white--text" outlined tile dense><v-icon>mdi-cart</v-icon> ADD TO CART</v-btn>
         <v-btn class="ml-4" outlined tile>ADD TO WISHLIST</v-btn>
 
@@ -43,7 +36,6 @@ export default {
     return {
       id: null,
       product: null,
-      quantity: 1,
       items: []
     }
   },
@@ -51,7 +43,6 @@ export default {
     initialize(id) {
       ProductService.getProductById(id).then((response) => {
         this.product = response.data;
-        this.items = Array.from({length: this.product.quantity}, (x, i) => i + 1)
       });
     },
   },

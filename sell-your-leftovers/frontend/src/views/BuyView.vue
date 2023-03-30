@@ -33,6 +33,23 @@
                   <span><small>Verfügbar:</small></span>
                   <span><small class="text-muted">{{ product.quantity }}</small></span>
                 </div>
+                <hr>
+                <div v-if="inCart(product.id)">
+                  <v-btn
+                      @click="removeCartItem(product.id)"
+                      class="bg-orange-darken-1 mb-3"
+                  >
+                    Entfernen
+                  </v-btn>
+                </div>
+                <div v-else>
+                  <v-btn
+                      @click="addCartItem(product.id)"
+                      class="bg-orange-darken-1 mb-3"
+                  >
+                    Hinzufügen
+                  </v-btn>
+                </div>
               </div>
             </div>
           </div>
@@ -47,6 +64,7 @@
 import ProductService from "@/services/ProductService";
 import FilterBar from "@/components/FilterBar.vue";
 import SortBar from "@/components/SortBar.vue";
+import CartService from "@/services/CartService";
 
 
 
@@ -56,9 +74,11 @@ export default {
     FilterBar,
     SortBar
   },
-  data(){
+  data() {
     return {
       products: [],
+      cartItems: [],
+      cartRequest: null,
       searchQuery: ""
     }
   },
@@ -67,6 +87,36 @@ export default {
       ProductService.getAllProducts().then((response) => {
         this.products = response.data;
       });
+    },
+    getAllCartItems() {
+      CartService.getAllCartItems().then((response) => {
+        this.cartItems = response.data;
+      })
+    },
+    addCartItem(productId){
+
+      this.cartRequest= JSON.parse(JSON.stringify({
+        productId: productId
+      }))
+
+      CartService.addCartItem(this.cartRequest).then(
+          this.getAllCartItems
+      )
+
+    },
+    removeCartItem(productId){
+
+      this.cartRequest= JSON.parse(JSON.stringify({
+        productId: productId
+      }))
+
+
+      CartService.removeCartItem(this.cartRequest).then(
+          this.getAllCartItems
+      )
+    },
+    inCart(productId){
+      return this.cartItems.some(item => item.id === productId);
     },
     onSort(event){
       switch (event) {
@@ -95,7 +145,7 @@ export default {
           this.products = response.data.filter(product => product.categoryType === categoryType)
         });
       }
-    }
+    },
   },
   computed:{
     filteredProducts() {
@@ -103,7 +153,8 @@ export default {
     }
   },
   beforeMount() {
-    this.getAllProducts();
+    this.getAllProducts()
+    this.getAllCartItems()
   }
 }
 

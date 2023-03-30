@@ -17,9 +17,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,6 +33,7 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
 
     public ResponseEntity<?> login(LoginRequest loginRequest, AuthenticationManager authenticationManager) {
 
@@ -37,7 +42,7 @@ public class UserService implements UserDetailsService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return ResponseEntity.ok("Login was successful");
+        return ResponseEntity.ok(tokenService.generateToken(authentication));
     }
 
     public ResponseEntity<?> register(RegisterRequest registerRequest) {
@@ -49,7 +54,13 @@ public class UserService implements UserDetailsService {
         User user = mapRegisterDtoToUser(registerRequest);
         userRepository.save(user);
 
-        return ResponseEntity.ok("User registered successfully");
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(user.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
     private User mapRegisterDtoToUser(RegisterRequest registerRequest) {
@@ -60,6 +71,14 @@ public class UserService implements UserDetailsService {
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .orders(new ArrayList<>())
                 .build();
+    }
+
+    public User getUserById(Long id){
+        return userRepository.findUserById(id);
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
     }
 
     @Override
@@ -75,6 +94,18 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
                 authorities);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        User user = userRepository.findUserByEmail(email);
+        return user;
     }
 }
 

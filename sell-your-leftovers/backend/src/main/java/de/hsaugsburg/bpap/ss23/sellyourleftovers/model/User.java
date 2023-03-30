@@ -3,6 +3,7 @@ package de.hsaugsburg.bpap.ss23.sellyourleftovers.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -38,5 +39,22 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
     @OneToMany
-    private List<Order> orders;
+    private List<Product> orders = new ArrayList<>();
+
+    @ManyToMany
+    @Column
+    private List<Product> cartItems = new ArrayList<>();
+
+    public void addCartItem(Product product) {
+        this.cartItems.add(product);
+    }
+
+    public void removeCartItem(Product product) {
+        this.cartItems.remove(product);
+    }
+
+    public void addOrder(Product product) {
+        orders.add(product);
+    }
+
 }

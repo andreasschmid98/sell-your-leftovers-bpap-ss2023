@@ -41,14 +41,6 @@
               required
           ></v-text-field>
 
-          <v-select
-              v-model="quantity"
-              :items="quantityItems"
-              :rules="[v => !!v || 'Anzahl ist ein Pflichtfeld']"
-              label="Anzahl"
-              required
-          ></v-select>
-
           <v-checkbox
               v-model="checkbox"
               :rules="[v => !!v || 'Du musst dem Verkauf zustimmen!']"
@@ -94,7 +86,6 @@ export default {
     categories: null,
     category: null,
     price: 0,
-    quantity: null,
     imageUrl:'',
     name: '',
     nameRules: [
@@ -106,7 +97,6 @@ export default {
       v => !!v || 'Beschreibung ist ein Pflichtfeld',
       v => (v && v.length >= 30) || 'Die Beschreibung muss mindestes 30 Zeichen lang sein',
     ],
-    quantityItems: Array.from({length: 50}, (x, i) => i + 1),
     categoryItems: null,
     checkbox: false
   }),
@@ -134,7 +124,6 @@ export default {
         description: this.description,
         imageUrl: this.imageUrl,
         price: this.price,
-        quantity: this.quantity,
         categoryType: this.categories.find( cat => cat.name === this.category).categoryType
       })
       ProductService.createProduct(JSON.parse(this.productRequest))
