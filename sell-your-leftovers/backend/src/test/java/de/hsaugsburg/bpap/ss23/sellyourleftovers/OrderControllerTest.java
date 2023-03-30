@@ -1,7 +1,6 @@
 package de.hsaugsburg.bpap.ss23.sellyourleftovers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.OrderLineItemsDto;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.OrderRequest;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;

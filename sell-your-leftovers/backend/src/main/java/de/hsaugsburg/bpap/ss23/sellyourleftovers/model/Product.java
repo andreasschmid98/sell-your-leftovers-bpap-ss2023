@@ -36,9 +36,11 @@ public class Product {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "quantity")
-    private Integer quantity;
+    @Column(name = "available")
+    private Boolean available;
 
     @Column(name = "category_type")
     private Category.CategoryType categoryType;
+
+
 }

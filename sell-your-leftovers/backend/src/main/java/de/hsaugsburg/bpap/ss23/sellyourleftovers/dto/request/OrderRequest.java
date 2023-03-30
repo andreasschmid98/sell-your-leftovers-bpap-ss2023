@@ -1,6 +1,5 @@
 package de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request;
 
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.OrderLineItemsDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,5 +12,5 @@ import java.util.List;
 @Builder
 @Data
 public class OrderRequest {
-    private List<OrderLineItemsDto> orderLineItemsDtoList;
+    private List<Long> productIds;
 }

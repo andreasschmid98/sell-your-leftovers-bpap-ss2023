@@ -31,7 +31,6 @@ public class ProductService {
                 .description(productRequest.getDescription())
                 .categoryType(productRequest.getCategoryType())
                 .price(productRequest.getPrice())
-                .quantity(productRequest.getQuantity())
                 .build();
 
         productRepository.save(product);
@@ -46,7 +45,7 @@ public class ProductService {
     }
 
     public List<ProductResponse> getAllProducts() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepository.findProductByAvailable(true);
         return products.stream().map(this::mapProductToProductResponse).toList();
     }
 
@@ -57,7 +56,7 @@ public class ProductService {
         return ResponseEntity.ok().body(mapProductToProductResponse(product));
     }
 
-    private ProductResponse mapProductToProductResponse(Product product) {
+    public ProductResponse mapProductToProductResponse(Product product) {
         return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
@@ -65,7 +64,6 @@ public class ProductService {
                 .skuCode(product.getSkuCode())
                 .description(product.getDescription())
                 .categoryType(product.getCategoryType())
-                .quantity(product.getQuantity())
                 .price(product.getPrice())
                 .build();
     }

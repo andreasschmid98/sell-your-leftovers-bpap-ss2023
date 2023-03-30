@@ -19,7 +19,6 @@ public class ProductRequest {
     private String imageUrl;
     private BigDecimal price;
     private Category.CategoryType categoryType;
-    private Integer quantity;
 }
 
 

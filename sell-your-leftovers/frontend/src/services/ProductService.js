@@ -1,19 +1,27 @@
 import axios from "axios";
+import {useAuthStore} from "@/stores/auth";
 
 const PRODUCT_API_BASE_URL = 'http://localhost:8080/api/product';
+
 
 class ProductService{
 
     getAllProducts(){
-        return axios.get(PRODUCT_API_BASE_URL);
+        return axios.get(PRODUCT_API_BASE_URL, {
+            headers: { Authorization: 'Bearer ' + useAuthStore().token }
+        });
     }
 
     getProductById(id){
-        return axios.get(PRODUCT_API_BASE_URL + "/" + id);
+        return axios.get(PRODUCT_API_BASE_URL + "/" + id, {
+            headers: { Authorization: 'Bearer ' + useAuthStore().token }
+        });
     }
 
     createProduct(productRequest){
-        axios.post(PRODUCT_API_BASE_URL, productRequest, ).then(r => console.log(productRequest + r))
+        return axios.post(PRODUCT_API_BASE_URL, productRequest, {
+            headers: { Authorization: 'Bearer ' + useAuthStore().token }
+        })
     }
 }
 

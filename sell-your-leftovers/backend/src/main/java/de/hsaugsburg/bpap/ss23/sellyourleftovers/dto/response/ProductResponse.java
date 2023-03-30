@@ -20,7 +20,6 @@ public class ProductResponse {
     private String imageUrl;
 
     private BigDecimal price;
-    private Integer quantity;
     private Category.CategoryType categoryType;
 
 }
