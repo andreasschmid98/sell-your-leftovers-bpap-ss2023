@@ -8,6 +8,11 @@
         <SortBar @on-sort="onSort"/>
       </div>
     </div>
+    <v-row>
+      <p class="text-muted mx-3" v-if="filteredProducts.length > 0"> {{filteredProducts.length}} Produkte gefunden</p>
+      <p class="text-muted mx-3" v-else-if="filteredProducts === 1"> {{filteredProducts.length}} Produkt gefunden</p>
+      <p class="text-muted mx-3" v-else>Kein Produkt gefunden</p>
+    </v-row>
     <div class="row row-cols-2 mt-4">
       <div class="col-2">
         <FilterBar @on-category="onCategory"/>
@@ -18,7 +23,7 @@
             <div class="card-home card h-100  text-center ">
               <router-link :to="{ name: 'product', params: { id: product.id }}"><img alt="Card image cap"
                                                                                      id="img-top"
-                                                                                     class="card-img-top"
+                                                                                     class="card-img-top mt-1"
                                                                                      :src="product.imageUrl"></router-link>
               <div class="card-body">
                 <h6 class="card-title text-center text-truncate m-b2"
@@ -29,24 +34,24 @@
                   <span><small class="text-muted">{{ product.price }}</small>
                                             <small class="text-muted"> €</small></span>
                 </div>
-                <div class="d-flex justify-content-between">
-                  <span><small>Verfügbar:</small></span>
-                  <span><small class="text-muted">{{ product.quantity }}</small></span>
-                </div>
                 <hr>
                 <div v-if="inCart(product.id)">
                   <v-btn
                       @click="removeCartItem(product.id)"
-                      class="bg-orange-darken-1 mb-3"
+                      class="bg-grey-lighten-3"
+                      size="small"
                   >
+                    <v-icon icon="mdi-cart"></v-icon>
                     Entfernen
                   </v-btn>
                 </div>
                 <div v-else>
                   <v-btn
                       @click="addCartItem(product.id)"
-                      class="bg-orange-darken-1 mb-3"
+                      class="bg-orange-darken-1"
+                      size="small"
                   >
+                    <v-icon icon="mdi-cart"></v-icon>
                     Hinzufügen
                   </v-btn>
                 </div>

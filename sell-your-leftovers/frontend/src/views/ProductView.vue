@@ -17,9 +17,26 @@
         <p class="subtitle-1 font-weight-thin">
           {{ product.description }}
         </p>
-        <v-btn class="primary white--text" outlined tile dense><v-icon>mdi-cart</v-icon> ADD TO CART</v-btn>
-        <v-btn class="ml-4" outlined tile>ADD TO WISHLIST</v-btn>
-
+        <div v-if="inCart(product.id)">
+        <v-btn
+            @click="removeCartItem(product.id)"
+            class="bg-grey-lighten-3"
+            size="small"
+        >
+          <v-icon icon="mdi-cart"></v-icon>
+          Entfernen
+        </v-btn>
+      </div>
+      <div v-else>
+        <v-btn
+            @click="addCartItem(product.id)"
+            class="bg-orange-darken-1"
+            size="small"
+        >
+          <v-icon icon="mdi-cart"></v-icon>
+          Hinzufügen
+        </v-btn>
+      </div>
       </div>
     </div>
   </div>
@@ -28,6 +45,7 @@
 <script>
 
 import ProductService from "@/services/ProductService";
+import CartService from "@/services/CartService";
 
 
 export default {
@@ -36,18 +54,49 @@ export default {
     return {
       id: null,
       product: null,
-      items: []
+      cartRequest: null,
+      cartItems: [],
     }
   },
   methods: {
+    getAllCartItems() {
+      CartService.getAllCartItems().then((response) => {
+        this.cartItems = response.data;
+      })
+    },
     initialize(id) {
       ProductService.getProductById(id).then((response) => {
         this.product = response.data;
       });
+      this.getAllCartItems()
+    },addCartItem(productId){
+
+      this.cartRequest= JSON.parse(JSON.stringify({
+        productId: productId
+      }))
+
+      CartService.addCartItem(this.cartRequest).then(
+          this.getAllCartItems
+      )
+
+    },
+    removeCartItem(productId){
+
+      this.cartRequest= JSON.parse(JSON.stringify({
+        productId: productId
+      }))
+
+
+      CartService.removeCartItem(this.cartRequest).then(
+          this.getAllCartItems
+      )
+    },
+    inCart(productId){
+      return this.cartItems.some(item => item.id === productId);
     },
   },
   beforeMount() {
-    this.id = this.$route.params.id,
+    this.id = this.$route.params.id
     this.initialize(this.id)
   }
 }

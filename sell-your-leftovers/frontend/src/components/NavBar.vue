@@ -13,8 +13,8 @@
             <template v-slot:activator="{ props }">
               <v-btn style="text-decoration: none; color: inherit;"
                   v-bind="props"
-              >
-                Profil
+              ><v-icon icon="mdi-account-circle" size="x-large"></v-icon>
+                &nbsp; Profil
               </v-btn>
             </template>
 
@@ -36,7 +36,6 @@
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-btn @click="logout" style="text-decoration: none; color: inherit;">Logout</v-btn>
         </v-row>
 
       </v-container>
