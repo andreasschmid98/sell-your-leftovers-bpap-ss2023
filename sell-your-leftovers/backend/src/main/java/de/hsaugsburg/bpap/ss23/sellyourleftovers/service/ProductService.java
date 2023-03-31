@@ -26,7 +26,6 @@ public class ProductService {
     public ResponseEntity<?> createProduct(ProductRequest productRequest){
         Product product = Product.builder()
                 .name(productRequest.getName())
-                .skuCode(UUID.randomUUID().toString())
                 .imageUrl(productRequest.getImageUrl())
                 .description(productRequest.getDescription())
                 .categoryType(productRequest.getCategoryType())
@@ -61,7 +60,6 @@ public class ProductService {
                 .id(product.getId())
                 .name(product.getName())
                 .imageUrl(product.getImageUrl())
-                .skuCode(product.getSkuCode())
                 .description(product.getDescription())
                 .categoryType(product.getCategoryType())
                 .price(product.getPrice())

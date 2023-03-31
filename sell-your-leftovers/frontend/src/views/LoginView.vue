@@ -85,6 +85,7 @@ export default {
       if (this.user.email !== '' && this.user.password !== '') {
         useAuthStore().login(this.user.email, this.user.password)
       }
+      console.log(useAuthStore().token)
       if (!useAuthStore().token){
         this.showLoginFailed = true
       }

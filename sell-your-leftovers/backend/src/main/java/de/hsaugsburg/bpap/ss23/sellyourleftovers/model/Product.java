@@ -21,9 +21,6 @@ public class Product {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "sku_code")
-    private String skuCode;
-
     @Column(name = "name")
     private String name;
 
