@@ -1,5 +1,15 @@
 <template>
-  <div class="row justify-content-center">
+  <div v-if="uploads.length === 0">
+    <div class="row gy-4 justify-content-center">
+      <div class="alert pt-2 w-75" role="alert">
+        <h4 class="alert-heading text-center">Keine eigenen Produkte vorhanden!</h4>
+        <p class="text-center">Du hast noch keine eigenen Produkte hochgeladen. Das kann
+          sich aber schon bald ändern!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center" v-else>
     <div class="col col-7">
         <v-table
             fixed-header
