@@ -17,6 +17,12 @@ public class CartController {
 
     private final CartService cartService;
 
+    @GetMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public List<ProductResponse> getAllCartItems(){
+        return cartService.getAllCartItems();
+    }
+
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.OK)
     public void addCartItem(@RequestBody CartRequest cartRequest) {
@@ -29,9 +35,4 @@ public class CartController {
         cartService.removeCartItem(cartRequest);
     }
 
-    @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponse> getAllCartItems(){
-        return cartService.getAllCartItems();
-    }
 }

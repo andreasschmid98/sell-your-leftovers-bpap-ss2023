@@ -15,13 +15,13 @@ import java.util.List;
 public class OrderService {
 
     private final UserService userService;
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
     public void order(OrderRequest orderRequest){
         List<Product> products = new ArrayList<>();
 
         for (Long productId : orderRequest.getProductIds()) {
-            Product product = productRepository.findProductById(productId);
+            Product product = productService.findProductById(productId);
             products.add(product);
         }
 
@@ -35,7 +35,7 @@ public class OrderService {
         for( Product product : products) {
             user.addOrder(product);
             product.setAvailable(false);
-            productRepository.save(product);
+            productService.save(product);
         }
 
         userService.save(user);
@@ -49,4 +49,5 @@ public class OrderService {
             userService.save(user);
         }
     }
+
 }

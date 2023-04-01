@@ -1,5 +1,6 @@
 package de.hsaugsburg.bpap.ss23.sellyourleftovers.service;
 
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.mapper.CategoryMapper;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Category;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.CategoryRepository;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.response.CategoryResponse;
@@ -16,14 +17,7 @@ public class CategoryService {
 
     public List<CategoryResponse> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
-        return categories.stream().map(this::mapCategoryToCategoryResponse).toList();
+        return categories.stream().map(CategoryMapper::map).toList();
     }
 
-    private CategoryResponse mapCategoryToCategoryResponse(Category category) {
-        return CategoryResponse.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .categoryType(category.getCategoryType())
-                .build();
-    }
 }

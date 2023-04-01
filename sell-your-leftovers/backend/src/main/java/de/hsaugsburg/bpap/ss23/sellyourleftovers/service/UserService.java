@@ -2,7 +2,11 @@ package de.hsaugsburg.bpap.ss23.sellyourleftovers.service;
 
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.LoginRequest;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.RegisterRequest;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.response.CategoryResponse;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.response.ProductResponse;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.error.exception.EmailAlreadyTakenException;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.mapper.UserMapper;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Product;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.User;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +36,6 @@ import java.util.stream.Collectors;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
     public ResponseEntity<?> login(LoginRequest loginRequest, AuthenticationManager authenticationManager) {
@@ -51,7 +54,7 @@ public class UserService implements UserDetailsService {
             throw new EmailAlreadyTakenException("User with this Email does already exists");
         }
 
-        User user = mapRegisterDtoToUser(registerRequest);
+        User user = UserMapper.map(registerRequest);
         userRepository.save(user);
 
         URI location = ServletUriComponentsBuilder
@@ -61,20 +64,6 @@ public class UserService implements UserDetailsService {
                 .toUri();
 
         return ResponseEntity.created(location).build();
-    }
-
-    private User mapRegisterDtoToUser(RegisterRequest registerRequest) {
-        return User.builder()
-                .firstName(registerRequest.getFirstName())
-                .lastName(registerRequest.getLastName())
-                .email(registerRequest.getEmail())
-                .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .orders(new ArrayList<>())
-                .build();
-    }
-
-    public User getUserById(Long id){
-        return userRepository.findUserById(id);
     }
 
     public void save(User user) {
@@ -107,5 +96,6 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findUserByEmail(email);
         return user;
     }
+
 }
 

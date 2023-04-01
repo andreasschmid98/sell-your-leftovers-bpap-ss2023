@@ -26,16 +26,12 @@
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>
-                  <router-link :to="{ name: 'sell'}" style="text-decoration: none; color: inherit;">Bestellungen</router-link>
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>
-                  <router-link :to="{ name: 'sell'}" style="text-decoration: none; color: inherit;">Meine Produkte</router-link>
+                  <router-link :to="{ name: 'uploads'}" style="text-decoration: none; color: inherit;">Meine Produkte</router-link>
                 </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
+          <v-btn @click="logout" style="text-decoration: none; color: inherit;">Logout</v-btn>
         </v-row>
 
       </v-container>

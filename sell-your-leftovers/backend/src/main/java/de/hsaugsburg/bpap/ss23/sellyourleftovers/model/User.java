@@ -45,6 +45,12 @@ public class User {
     @Column
     private List<Product> cartItems = new ArrayList<>();
 
+    @OneToMany
+    @Column
+    private List<Product> uploads = new ArrayList<>();
+
+
+
     public void addCartItem(Product product) {
         this.cartItems.add(product);
     }
@@ -55,6 +61,10 @@ public class User {
 
     public void addOrder(Product product) {
         orders.add(product);
+    }
+
+    public void addUpload(Product product){
+        uploads.add(product);
     }
 
 }

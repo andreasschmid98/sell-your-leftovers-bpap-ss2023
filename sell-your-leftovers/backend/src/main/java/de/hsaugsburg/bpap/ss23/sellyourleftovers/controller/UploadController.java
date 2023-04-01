@@ -1,9 +1,8 @@
 package de.hsaugsburg.bpap.ss23.sellyourleftovers.controller;
 
-
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.ProductRequest;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.response.ProductResponse;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.service.ProductService;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.service.UploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,20 +12,21 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/product")
+@RequestMapping("/api/upload")
 @RequiredArgsConstructor
-public class ProductController {
+public class UploadController {
 
-    private final ProductService productService;
+    private final UploadService uploadService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponse> getAllProducts(){
-        return productService.getAllProducts();
+    public List<ProductResponse> getAllUploads(){
+        return uploadService.getAllUploads();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id){
-        return productService.getProductById(id);
+    @PostMapping
+    public ResponseEntity<?> uploadProduct(@RequestBody ProductRequest productRequest) {
+        return uploadService.uploadProduct(productRequest);
     }
+
 }

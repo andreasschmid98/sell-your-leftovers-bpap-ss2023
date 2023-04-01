@@ -2,7 +2,9 @@ package de.hsaugsburg.bpap.ss23.sellyourleftovers.service;
 
 
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.error.exception.ResourceNotFoundException;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.mapper.ProductMapper;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Product;
+import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.User;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.ProductRepository;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.ProductRequest;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.response.ProductResponse;
@@ -14,7 +16,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,46 +24,22 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public ResponseEntity<?> createProduct(ProductRequest productRequest){
-        Product product = Product.builder()
-                .name(productRequest.getName())
-                .imageUrl(productRequest.getImageUrl())
-                .description(productRequest.getDescription())
-                .categoryType(productRequest.getCategoryType())
-                .price(productRequest.getPrice())
-                .build();
-
-        productRepository.save(product);
-
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(product.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
-    }
-
     public List<ProductResponse> getAllProducts() {
         List<Product> products = productRepository.findProductByAvailable(true);
-        return products.stream().map(this::mapProductToProductResponse).toList();
+        return products.stream().map(ProductMapper::map).toList();
     }
-
 
     public ResponseEntity<ProductResponse> getProductById(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id + " NOT Found"));
-        return ResponseEntity.ok().body(mapProductToProductResponse(product));
+        return ResponseEntity.ok().body(ProductMapper.map(product));
     }
 
-    public ProductResponse mapProductToProductResponse(Product product) {
-        return ProductResponse.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .imageUrl(product.getImageUrl())
-                .description(product.getDescription())
-                .categoryType(product.getCategoryType())
-                .price(product.getPrice())
-                .build();
+    public Product findProductById(Long id){
+        return productRepository.findProductById(id);
+    }
+
+    public void save(Product product) {
+        productRepository.save(product);
     }
 }

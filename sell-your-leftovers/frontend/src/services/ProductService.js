@@ -17,12 +17,6 @@ class ProductService{
             headers: { Authorization: 'Bearer ' + useAuthStore().token }
         });
     }
-
-    createProduct(productRequest){
-        return axios.post(PRODUCT_API_BASE_URL, productRequest, {
-            headers: { Authorization: 'Bearer ' + useAuthStore().token }
-        })
-    }
 }
 
 export default new ProductService();
