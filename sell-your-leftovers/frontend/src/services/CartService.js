@@ -2,11 +2,6 @@ import axios from "axios";
 import {useAuthStore} from "@/stores/auth";
 
 const CART_API_URL = 'http://localhost:8080/api/cart';
-const CONFIG = {
-    headers: {
-        Authorization: 'Bearer ' + useAuthStore().token
-    }
-}
 
 class CartService {
 
