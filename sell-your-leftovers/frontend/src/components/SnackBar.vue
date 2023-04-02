@@ -1,4 +1,5 @@
 <template>
+
   <v-snackbar
       v-model="config.show"
       rounded="pill"
@@ -15,9 +16,11 @@
       </v-btn>
     </template>
   </v-snackbar>
+
 </template>
 
 <script>
+
 export default {
   name: "SnackBar",
   props: ['config']

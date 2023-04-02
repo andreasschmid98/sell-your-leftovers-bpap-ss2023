@@ -7,7 +7,7 @@ const ORDER_API_URL = 'http://localhost:8080/api/order';
 class CartService {
 
 
-    placeOrder(orderRequest){
+    order(orderRequest){
         return axios.post(ORDER_API_URL, orderRequest, {
             headers: {
                 Authorization: 'Bearer ' + useAuthStore().token

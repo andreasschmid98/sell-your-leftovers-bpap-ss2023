@@ -1,6 +1,6 @@
 <template>
-  <div class="align-center" >
 
+  <div class="align-center">
     <v-card
         class="mx-auto"
         max-width="500"
@@ -64,7 +64,7 @@
         <v-row align="center" justify="center" class="mt-7">
               <span class="text-center">Bereits registriert?
                  <router-link class="text-black" :to="{ name: 'login'}"> Hier einloggen! </router-link>
-                        </span>
+              </span>
         </v-row>
       </v-form>
     </v-card>
@@ -73,7 +73,8 @@
         rounded="pill"
         color="orange-darken-1"
     >
-      Deine Registrierung war erfolgreich! <router-link class="text-white" :to="{ name: 'login'}"> Hier einloggen! </router-link>
+      Deine Registrierung war erfolgreich!
+      <router-link class="text-white" :to="{ name: 'login'}"> Hier einloggen!</router-link>
 
       <template v-slot:actions>
         <v-btn
@@ -85,79 +86,62 @@
         </v-btn>
       </template>
     </v-snackbar>
-    <v-snackbar
-        v-model="showRegisterFailed"
-        rounded="pill"
-        color="orange-darken-1"
-    >
-      Registrierung fehlgeschlagen. Bitte erneut versuchen!
-      <template v-slot:actions>
-        <v-btn
-            color="white"
-            icon="mdi-close-circle"
-            variant="text"
-            @click="showRegisterFailed = false"
-        >
-        </v-btn>
-      </template>
-    </v-snackbar>
+    <SnackBar v-bind:config="snackBarConfig"/>
   </div>
+
 </template>
 
 <script>
-import AuthService from "@/services/AuthService";
 
+import AuthService from "@/services/AuthService"
+import SnackBar from "@/components/SnackBar.vue"
 
 export default {
   name: "RegisterView",
+  components: {SnackBar},
   data() {
     return {
+      registerFailed: true,
       registerRequest: {
         firstName: '',
         lastName: '',
         email: '',
         password: ''
       },
-      passwordRules: [v => !!v || ''],
       emailRules: [
         v => !!v,
         v => /^(([^<>()[\]\\.,;:\s@']+(\.[^<>()\\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v) || '',
       ],
       showRegisterSuccess: false,
-      showRegisterFailed: false,
-      valid: false
+      snackBarConfig: {
+        show: false,
+        description: 'Registrierung fehlgeschlagen. Bitte erneut versuchen!'
+      }
     }
   },
   methods: {
     register() {
-
-      this.$refs.form.validate().then( response => {
-
+      this.$refs.form.validate().then(async response => {
         if (response.valid) {
-          AuthService.register(JSON.parse(JSON.stringify({
-            firstName: this.registerRequest.firstName,
-            lastName: this.registerRequest.lastName,
-            email: this.registerRequest.email,
-            password: this.registerRequest.password
-          }))).then((response) => {
-                if(response.status === 201) {
-                  this.showRegisterSuccess = true
-                } else {
-                  this.showRegisterFailed = true
+          this.registerFailed = await AuthService.register(this.registerRequest).then((response) => {
+                if (response.status === 201) {
+                  return false
                 }
               }
-          )
+          ).catch(function (error) {
+            if (error.response) {
+              return true
+            }
+          })
+        }
+        if (this.registerFailed) {
+          this.snackBarConfig.show = true
         } else {
-          this.showRegisterFailed = true
+          this.showRegisterSuccess = true
         }
       })
-
     }
   }
 }
 
 </script>
-
-<style scoped>
-
-</style>

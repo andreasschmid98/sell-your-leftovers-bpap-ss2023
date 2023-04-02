@@ -1,16 +1,18 @@
 <template>
+
   <v-con>
     <div class="row">
       <div class="col-3 justify-content-end">
-        <v-text-field size="small" color="bg-orange-darken-1" class="fill-width" label="Suche" variant="outlined" v-model="searchQuery"></v-text-field>
+        <v-text-field size="small" color="bg-orange-darken-1" class="fill-width" label="Suche" variant="outlined"
+                      v-model="searchQuery"></v-text-field>
       </div>
       <div class="col d-flex justify-content-end mt-2">
         <SortBar @on-sort="onSort"/>
       </div>
     </div>
     <v-row>
-      <p class="text-muted mx-3" v-if="filteredProducts.length > 0"> {{filteredProducts.length}} Produkte gefunden</p>
-      <p class="text-muted mx-3" v-else-if="filteredProducts === 1"> {{filteredProducts.length}} Produkt gefunden</p>
+      <p class="text-muted mx-3" v-if="filteredProducts.length > 0"> {{ filteredProducts.length }} Produkte gefunden</p>
+      <p class="text-muted mx-3" v-else-if="filteredProducts === 1"> {{ filteredProducts.length }} Produkt gefunden</p>
       <p class="text-muted mx-3" v-else>Kein Produkt gefunden</p>
     </v-row>
     <div class="row row-cols-2 mt-4">
@@ -24,10 +26,11 @@
               <router-link :to="{ name: 'product', params: { id: product.id }}"><img alt="Card image cap"
                                                                                      id="img-top"
                                                                                      class="card-img-top mt-1"
-                                                                                     :src="product.imageUrl"></router-link>
+                                                                                     :src="product.imageUrl">
+              </router-link>
               <div class="card-body">
                 <h6 class="card-title text-center text-truncate m-b2"
-                >{{ product.name}}</h6>
+                >{{ product.name }}</h6>
                 <hr>
                 <div class="d-flex justify-content-between">
                   <span><small>Preis:</small></span>
@@ -62,16 +65,15 @@
       </div>
     </div>
   </v-con>
+
 </template>
 
 <script>
 
-import ProductService from "@/services/ProductService";
-import FilterBar from "@/components/FilterBar.vue";
-import SortBar from "@/components/SortBar.vue";
-import CartService from "@/services/CartService";
-
-
+import ProductService from "@/services/ProductService"
+import FilterBar from "@/components/FilterBar.vue"
+import SortBar from "@/components/SortBar.vue"
+import CartService from "@/services/CartService"
 
 export default {
   name: 'BuyView',
@@ -83,8 +85,10 @@ export default {
     return {
       products: [],
       cartItems: [],
-      cartRequest: null,
-      searchQuery: ""
+      cartRequest: {
+        productId: ''
+      },
+      searchQuery: ''
     }
   },
   methods: {
@@ -98,63 +102,47 @@ export default {
         this.cartItems = response.data;
       })
     },
-    addCartItem(productId){
-
-      this.cartRequest= JSON.parse(JSON.stringify({
-        productId: productId
-      }))
-
+    addCartItem(productId) {
+      this.cartRequest.productId = productId
       CartService.addCartItem(this.cartRequest).then(
           this.getAllCartItems
       )
-
     },
-    removeCartItem(productId){
-
-      this.cartRequest= JSON.parse(JSON.stringify({
-        productId: productId
-      }))
-
-
+    removeCartItem(productId) {
+      this.cartRequest.productId = productId
       CartService.removeCartItem(this.cartRequest).then(
           this.getAllCartItems
       )
     },
-    inCart(productId){
+    inCart(productId) {
       return this.cartItems.some(item => item.id === productId);
     },
-    onSort(event){
+    onSort(event) {
       switch (event) {
         case 'price-ascending':
-          this.onPriceAscending()
+          this.products = this.products.sort((a, b) => (a.price > b.price) ? 1 : -1)
           break
         case 'price-descending':
-          this.onPriceDescending()
+          this.products = this.products.sort((a, b) => (a.price < b.price) ? 1 : -1)
           break
         default:
           break
       }
     },
-    onPriceAscending() {
-      this.products = this.products.sort((a, b) => (a.price > b.price) ? 1 : -1)
-    },
-    onPriceDescending() {
-      this.products = this.products.sort((a, b) => (a.price < b.price) ? 1 : -1)
-    },
     onCategory(categoryType) {
-      this.searchQuery=""
+      this.searchQuery = ""
       if (categoryType === undefined) {
-        this.getAllProducts();
+        this.getAllProducts()
       } else {
         ProductService.getAllProducts().then((response) => {
           this.products = response.data.filter(product => product.categoryType === categoryType)
-        });
+        })
       }
     },
   },
-  computed:{
+  computed: {
     filteredProducts() {
-      return this.products.filter( product => product.name.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      return this.products.filter(product => product.name.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
   },
   beforeMount() {

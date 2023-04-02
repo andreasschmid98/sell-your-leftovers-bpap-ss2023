@@ -20,28 +20,27 @@
           </v-list-item-title>
         </v-list-item>
       </v-list-item-group>
-
     </v-list>
   </v-card>
 </template>
 
 <script>
-import CategoryService from "@/services/CategoryService";
+import CategoryService from "@/services/CategoryService"
 
 export default {
   name: 'FilterBarView',
-  data(){
+  data() {
     return {
       categories: []
     }
   },
   methods: {
-    getAllCategories(){
+    getAllCategories() {
       CategoryService.getAllCategories().then((response) => {
         this.categories = response.data;
       })
     },
-    onCategory(categoryType){
+    onCategory(categoryType) {
       this.$emit('on-category', categoryType)
     }
   },

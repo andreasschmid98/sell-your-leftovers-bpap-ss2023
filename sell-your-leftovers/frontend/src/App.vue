@@ -1,6 +1,7 @@
 <template>
+
   <v-app>
-    <header v-show="!hide">
+    <header v-show="!hideNavAndFooter">
       <v-container class="align-center">
         <NavBar/>
       </v-container>
@@ -10,28 +11,31 @@
         <router-view/>
       </v-container>
     </v-main>
-    <div class="my-6" v-show="!hide">
-      <Footer/>
+    <div class="my-6" v-show="!hideNavAndFooter">
+      <FooterBar/>
     </div>
   </v-app>
 
 </template>
 
 <script>
-import Footer from '@/components/Footer.vue';
-import NavBar from "@/components/NavBar.vue";
+
+import FooterBar from '@/components/FooterBar.vue'
+import NavBar from "@/components/NavBar.vue"
+
 export default {
   name: "App",
   components: {
-    Footer,
+    FooterBar,
     NavBar
   },
   computed: {
-    hide () {
+    hideNavAndFooter () {
       return this.$route.path === '/login' || this.$route.path === '/register';
     }
   }
 }
+
 </script>
 
 

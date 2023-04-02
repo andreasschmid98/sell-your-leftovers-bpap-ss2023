@@ -24,11 +24,11 @@
 <script>
 export default {
   name: "SortBar",
-  data () {
+  data() {
     return {
       items: [
-        { order: 'Preis aufsteigend', event: 'price-ascending' },
-        { order: 'Preis absteigend', event: 'price-descending' }
+        {order: 'Preis aufsteigend', event: 'price-ascending'},
+        {order: 'Preis absteigend', event: 'price-descending'}
       ]
     }
   },

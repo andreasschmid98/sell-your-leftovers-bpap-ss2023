@@ -9,7 +9,7 @@ class AuthService {
     }
 
     register(registerRequest){
-        return axios.post(AUTH_API_URL + "/register", registerRequest);
+        return axios.post(AUTH_API_URL + "/register", registerRequest)
     }
 
 }

@@ -1,4 +1,5 @@
 <template>
+
   <div class="align-center">
     <v-card
         class="mx-auto"
@@ -49,25 +50,27 @@
     </v-card>
     <SnackBar v-bind:config="snackBarConfig"/>
   </div>
+
 </template>
 
 <script>
+
 import {useAuthStore} from "@/stores/auth"
-import SnackBar from "@/components/SnackBar.vue";
+import SnackBar from "@/components/SnackBar.vue"
 
 export default {
   name: "LoginView",
-  components: { SnackBar },
+  components: {SnackBar},
   data() {
     return {
+      snackBarConfig: {
+        show: false,
+        description: 'Email oder Passwort falsch'
+      },
       user: {
         email: '',
         password: ''
       },
-      snackBarConfig: {
-        show: false,
-        description: 'Email oder Passwort falsch'
-      }
     }
   },
   methods: {
@@ -81,7 +84,5 @@ export default {
     }
   }
 }
-</script>
 
-<style scoped>
-</style>
+</script>

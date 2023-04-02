@@ -17,8 +17,7 @@ public class ProductResponse {
     private String name;
     private String description;
     private String imageUrl;
-
     private BigDecimal price;
     private Category.CategoryType categoryType;
-
+    private Boolean available;
 }

@@ -1,9 +1,10 @@
 <template>
+
   <div v-if="cartItems.length === 0">
     <div class="row gy-4 justify-content-center">
       <div class="alert pt-2 w-75" role="alert">
         <h4 class="alert-heading text-center">Dein Warenkorb ist aktuell noch leer!</h4>
-        <p class="text-center">In Deinem Einkaufwagen befinden sich aktuell noch keine Produkte. Das kann
+        <p class="text-center">In Deinem Einkaufswagen befinden sich aktuell noch keine Produkte. Das kann
           sich aber schon bald ändern!</p>
       </div>
     </div>
@@ -17,17 +18,18 @@
               <div class="card mb-3 border-0" v-for="cartItem in cartItems" v-bind:key="cartItem.id">
                 <div class="card-body">
                   <div class="d-flex justify-content-between">
-                    <div class="d-flex flex-row align-items-center">
-                      <div>
+                    <router-link class="text-decoration-none text-black"
+                                 :to="{ name: 'product', params: { id: cartItem.id }}">
+                      <div class="d-flex flex-row align-items-center">
                         <img
                             :src="cartItem.imageUrl"
                             class="img-fluid rounded-3" alt="Shopping item"
                             style="height: 65px; width:65px">
+                        <div class="ms-3">
+                          <h5> {{ cartItem.name }}</h5>
+                        </div>
                       </div>
-                      <div class="ms-3">
-                        <h5> {{ cartItem.name}}</h5>
-                      </div>
-                    </div>
+                    </router-link>
                     <div class="d-flex flex-row align-items-center">
                       <div style="width: 80px;">
                                                 <span><span class="text-muted"> {{ cartItem.price }}</span>
@@ -50,7 +52,7 @@
           <div class="row d-flex justify-content-center">
             <div class="col text-end">
               <hr>
-              <span><strong>Summe: </strong><strong>{{ sum }}</strong>
+              <span><strong>Summe: </strong><strong>{{ cartSum }}</strong>
                                             <strong class="text-muted"> €</strong></span>
             </div>
           </div>
@@ -59,92 +61,108 @@
     </div>
     <div class="text-center my-4">
       <v-dialog
-          v-model="dialog"
+          v-model="showDialog"
           width="auto"
       >
         <template v-slot:activator="{ props }">
           <v-btn
               class="bg-orange-darken-1 mb-3"
               v-bind="props"
-              @click="placeOrder"
+              @click="order"
           >
             Jetzt verbindlich kaufen
           </v-btn>
         </template>
 
         <v-card>
-          <v-card-title>Bestellung erfolgreich</v-card-title>
+          <v-card-title>{{ dialog.title }}</v-card-title>
           <v-card-text>
-            Du erhältst eine Email mit allen Details zu Deiner Bestellung!
+            {{ dialog.description }}
           </v-card-text>
           <v-card-actions>
-            <v-btn color="orange-darken-1" block @click="onBuyMoreProducts">Weiter Einkaufen</v-btn>
+            <v-btn color="orange-darken-1" block @click="onDialogButton"> {{ dialog.buttonDescription }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
     </div>
   </div>
+
 </template>
 
 <script>
 
-import CartService from "@/services/CartService";
-import OrderService from "@/services/OrderService";
-import router from "@/router";
+import CartService from "@/services/CartService"
+import OrderService from "@/services/OrderService"
+import router from "@/router"
 
 export default {
   name: "CartView",
   data() {
     return {
+      orderFailed: true,
+      dialog: {
+        title: 'Bestellung fehlgeschlagen',
+        description: 'Leider ist etwas schief gelaufen. Du findest Deine Artikel weiterhin in Deinem Einkaufswagen.',
+        buttonDescription: 'Verstanden'
+      },
+      showDialog: false,
       cartItems: [],
-      orderRequest: null,
-      sum: 0,
-      dialog: false
+      cartRequest: {
+        productId: ''
+      },
+      orderRequest: {
+        productIds: []
+      },
+      cartSum: 0,
     }
   },
   methods: {
     getAllCartItems() {
       CartService.getAllCartItems().then((response) => {
-        this.cartItems = response.data;
-        this.getSum()
-      });
-    },
-    placeOrder() {
-
-      this.orderRequest = JSON.parse(JSON.stringify({
-        productIds: this.cartItems.map(({ id }) => id)
-      }))
-
-      OrderService.placeOrder(this.orderRequest).then( (response) => {
+        this.cartItems = response.data
+        this.setCartSum()
       })
     },
-    removeCartItem(productId){
+    async order() {
+      this.orderRequest.productIds = this.cartItems.map(({id}) => id)
 
-      this.cartRequest= JSON.parse(JSON.stringify({
-        productId: productId
-      }))
-
-
+      this.orderFailed = await OrderService.order(this.orderRequest).then(response => {
+            if (response.status === 200) {
+              console.log("success")
+              return false
+            }
+          }
+      ).catch(function (error) {
+        if (error.response) {
+          return true
+        }
+      })
+      if (!this.orderFailed) {
+        this.dialog.title = 'Bestellung erfolgreich'
+        this.dialog.description = 'Du erhältst eine Email mit allen Details zu Deiner Bestellung!'
+        this.dialog.buttonDescription = 'Weiter einkaufen'
+      }
+    },
+    removeCartItem(productId) {
+      this.cartRequest.productId = productId
       CartService.removeCartItem(this.cartRequest).then(
           this.getAllCartItems
       )
     },
-    getSum(){
-      this.sum = Math.round(this.cartItems.reduce((sum, item) => sum + item.price, 0) * 100) / 100
+    setCartSum() {
+      this.cartSum = Math.round(this.cartItems.reduce((sum, item) => sum + item.price, 0) * 100) / 100
     },
-    onBuyMoreProducts(){
-      this.showOrderSuccess = false;
-      router.push('buy')
+    onDialogButton() {
+      if (this.orderFailed) {
+        this.showDialog = false
+      } else {
+        router.push('buy')
+      }
     }
   },
-    beforeMount() {
-      this.getAllCartItems()
-    }
-
+  beforeMount() {
+    this.getAllCartItems()
+  }
 }
 
 </script>
-
-<style scoped>
-
-</style>
