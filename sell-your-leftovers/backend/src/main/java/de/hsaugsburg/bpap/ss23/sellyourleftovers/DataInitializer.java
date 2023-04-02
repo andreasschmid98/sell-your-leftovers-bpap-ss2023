@@ -33,7 +33,7 @@ public class DataInitializer implements CommandLineRunner {
         Category beer = new Category(1L, Category.CategoryType.BEER, "Bier");
         Category wine = new Category(2L, Category.CategoryType.WINE, "Wein");
         Category spirits = new Category(3L, Category.CategoryType.SPIRITS, "Spirituosen");
-        Category nonAlcoholic = new Category(4L, Category.CategoryType.NONALCOHOLIC, "Soft");
+        Category nonAlcoholic = new Category(4L, Category.CategoryType.NONALCOHOLIC, "Softgetränke");
 
         categoryRepository.save(beer);
         categoryRepository.save(wine);

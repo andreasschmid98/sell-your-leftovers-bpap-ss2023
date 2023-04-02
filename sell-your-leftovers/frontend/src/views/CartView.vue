@@ -60,30 +60,40 @@
       </div>
     </div>
     <div class="text-center my-4">
-      <v-dialog
-          v-model="showDialog"
-          width="auto"
-      >
-        <template v-slot:activator="{ props }">
-          <v-btn
-              class="bg-orange-darken-1 mb-3"
-              v-bind="props"
-              @click="order"
+      <div class="row justify-content-center">
+        <div class="col col-3">
+          <v-dialog
+              v-model="showDialog"
+              width="auto"
           >
-            Jetzt verbindlich kaufen
-          </v-btn>
-        </template>
+            <template v-slot:activator="{ props }">
+              <v-btn
+                  class="bg-orange-darken-1 mb-3"
+                  block
+                  v-bind="props"
+                  @click="order"
+              >
+                <v-progress-circular
+                    v-show="showProgressCircular"
+                    indeterminate
+                    color="white"
+                ></v-progress-circular>
+                <span v-show="!showProgressCircular">Jetzt verbindlich kaufen</span>
+              </v-btn>
+            </template>
 
-        <v-card>
-          <v-card-title>{{ dialog.title }}</v-card-title>
-          <v-card-text>
-            {{ dialog.description }}
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="orange-darken-1" block @click="onDialogButton"> {{ dialog.buttonDescription }}</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+            <v-card>
+              <v-card-title>{{ dialog.title }}</v-card-title>
+              <v-card-text>
+                {{ dialog.description }}
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color="orange-darken-1" block @click="onDialogButton"> {{ dialog.buttonDescription }}</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -100,12 +110,13 @@ export default {
   data() {
     return {
       orderFailed: true,
+      showDialog: false,
+      showProgressCircular: false,
       dialog: {
         title: 'Bestellung fehlgeschlagen',
         description: 'Leider ist etwas schief gelaufen. Du findest Deine Artikel weiterhin in Deinem Einkaufswagen.',
         buttonDescription: 'Verstanden'
       },
-      showDialog: false,
       cartItems: [],
       cartRequest: {
         productId: ''
@@ -124,6 +135,9 @@ export default {
       })
     },
     async order() {
+      this.showDialog = false
+      this.showProgressCircular = true
+
       this.orderRequest.productIds = this.cartItems.map(({id}) => id)
 
       this.orderFailed = await OrderService.order(this.orderRequest).then(response => {
@@ -142,6 +156,7 @@ export default {
         this.dialog.description = 'Du erhältst eine Email mit allen Details zu Deiner Bestellung!'
         this.dialog.buttonDescription = 'Weiter einkaufen'
       }
+      this.showDialog = true
     },
     removeCartItem(productId) {
       this.cartRequest.productId = productId

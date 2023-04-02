@@ -75,9 +75,9 @@ export default {
   },
   methods: {
     login() {
-      if (this.user.email !== '' && this.user.password !== '') {
-        useAuthStore().login(this.user.email, this.user.password)
-      }
+
+      useAuthStore().login(this.user.email, this.user.password)
+
       if (!useAuthStore().token) {
         this.snackBarConfig.show = true
       }

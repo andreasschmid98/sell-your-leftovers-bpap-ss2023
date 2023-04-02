@@ -21,8 +21,7 @@ export const useAuthStore = defineStore({
                     localStorage.setItem('token', JSON.stringify(token))
                     this.user = email
                     this.token = token
-                    router.push(this.returnUrl || '/')
-                    console.log(this.token)
+                    router.push('/')
                 } else {
                     throw new Error('Invalid credentials')
                 }
