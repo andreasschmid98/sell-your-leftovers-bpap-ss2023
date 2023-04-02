@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -62,6 +63,6 @@ public class DataInitializer implements CommandLineRunner {
         productRepository.save(new Product(22L,"Württemberg Qualitätswein rot 6x 700ml", "https://iili.io/Hwl66Zb.png","Württemberg Qualitätswein Rot ist ein Rotwein aus der Region Württemberg in Süddeutschland, der aus ausgewählten roten Trauben hergestellt wird. Der Wein zeichnet sich durch sein tiefes Rot und seinen vollen Geschmack aus, der von Aromen von dunklen Beeren und Gewürzen geprägt ist. Württemberg Qualitätswein Rot eignet sich perfekt als Begleiter zu kräftigen Fleischgerichten oder würzigem Käse. Ein qualitativ hochwertiger Rotwein aus einer renommierten Weinregion, der durch seine Aromenvielfalt und seine Tanninstruktur überzeugt.",new BigDecimal(19.99), true,Category.CategoryType.WINE));
 
         userRepository.save(new User(1L, "Andreas","Schmid", "schmidandreas.ul@gmail.com", passwordEncoder.encode("test"), null, new ArrayList<>(), new ArrayList<>(),new ArrayList<>()));
-        userRepository.save(new User(2L, "Andreas","Schmid", "test@test.com",passwordEncoder.encode("test"),null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        userRepository.save(new User(2L, "Andreas","Schmid", "test@test.com",passwordEncoder.encode("test"),null, new ArrayList<>(), new ArrayList<>(List.of(productRepository.findProductById(22L))), new ArrayList<>(List.of(productRepository.findProductById(1L)))));
     }
 }

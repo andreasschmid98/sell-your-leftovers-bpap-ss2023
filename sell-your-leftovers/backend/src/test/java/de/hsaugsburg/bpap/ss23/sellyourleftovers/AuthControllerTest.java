@@ -4,25 +4,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.LoginRequest;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.RegisterRequest;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.UserRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestPropertySource(locations = "classpath:application-test.properties")
-@Sql(scripts = {"classpath:user.sql"})
 public class AuthControllerTest {
 
     @Autowired
@@ -33,6 +30,7 @@ public class AuthControllerTest {
 
     @Autowired
     UserRepository userRepository;
+
 
     @Test
     public void testLoginSuccess() throws Exception {
@@ -53,7 +51,7 @@ public class AuthControllerTest {
                         .post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginRequest)))
-                .andExpect(MockMvcResultMatchers.status().isForbidden());
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
     }
 
     @Test
@@ -64,31 +62,33 @@ public class AuthControllerTest {
                         .post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginRequest)))
-                .andExpect(MockMvcResultMatchers.status().isForbidden());
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
     }
 
     @Test
     public void testRegisterSuccess() throws Exception {
-        RegisterRequest registerRequest = new RegisterRequest("first", "last", "first@last.com","test");
+        RegisterRequest registerRequest = new RegisterRequest("first", "last", "first@last.com", "test");
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/api/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(registerRequest)))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(status().isCreated());
 
-        Assertions.assertTrue(userRepository.existsByEmail(registerRequest.getEmail()));
+        assertTrue(userRepository.existsByEmail(registerRequest.getEmail()));
     }
 
     @Test
     public void testRegisterThrowsEmailAlreadyTakenException() throws Exception {
-        RegisterRequest registerRequest = new RegisterRequest("first", "last", "test@test.com","test");
+        RegisterRequest registerRequest = new RegisterRequest("first", "last", "test@test.com", "test");
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/api/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(registerRequest)))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("message", is("Email already taken")));
     }
+
 }

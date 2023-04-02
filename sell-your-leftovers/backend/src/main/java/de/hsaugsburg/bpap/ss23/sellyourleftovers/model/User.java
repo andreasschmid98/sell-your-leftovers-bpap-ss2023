@@ -49,8 +49,6 @@ public class User {
     @Column
     private List<Product> uploads = new ArrayList<>();
 
-
-
     public void addCartItem(Product product) {
         this.cartItems.add(product);
     }
