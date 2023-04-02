@@ -18,25 +18,27 @@
         <p class="subtitle-1 font-weight-thin">
           {{ product.description }}
         </p>
-        <div v-if="inCart(product.id)">
-          <v-btn
-              @click="removeCartItem(product.id)"
-              class="bg-grey-lighten-3"
-              size="small"
-          >
-            <v-icon icon="mdi-cart"></v-icon>
-            Entfernen
-          </v-btn>
-        </div>
-        <div v-else>
-          <v-btn
-              @click="addCartItem(product.id)"
-              class="bg-orange-darken-1"
-              size="small"
-          >
-            <v-icon icon="mdi-cart"></v-icon>
-            Hinzufügen
-          </v-btn>
+        <div v-show="product.available">
+          <div v-if="inCart(product.id)">
+            <v-btn
+                @click="removeCartItem(product.id)"
+                class="bg-grey-lighten-3"
+                size="small"
+            >
+              <v-icon icon="mdi-cart"></v-icon>
+              Entfernen
+            </v-btn>
+          </div>
+          <div v-else>
+            <v-btn
+                @click="addCartItem(product.id)"
+                class="bg-orange-darken-1"
+                size="small"
+            >
+              <v-icon icon="mdi-cart"></v-icon>
+              Hinzufügen
+            </v-btn>
+          </div>
         </div>
       </div>
     </div>
