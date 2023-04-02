@@ -31,7 +31,6 @@ public class AuthControllerTest {
     @Autowired
     UserRepository userRepository;
 
-
     @Test
     public void testLoginSuccess() throws Exception {
         LoginRequest loginRequest = new LoginRequest("test@test.com", "test");

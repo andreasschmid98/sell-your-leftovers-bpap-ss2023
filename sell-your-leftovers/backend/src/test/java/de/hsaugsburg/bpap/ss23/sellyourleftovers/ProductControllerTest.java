@@ -1,6 +1,5 @@
 package de.hsaugsburg.bpap.ss23.sellyourleftovers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,4 +37,5 @@ public class ProductControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name", is("Sprizzero Bitterorange 10x 300ml")));
     }
+
 }
