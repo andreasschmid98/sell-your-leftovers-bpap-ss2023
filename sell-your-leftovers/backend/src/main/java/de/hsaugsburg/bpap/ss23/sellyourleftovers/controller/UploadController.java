@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * This provides the API-endpoints for the upload functionality.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api/upload")
@@ -20,7 +23,7 @@ public class UploadController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProductResponse> getAllUploads(){
+    public List<ProductResponse> getAllUploads() {
         return uploadService.getAllUploads();
     }
 

@@ -12,6 +12,9 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
 
+/**
+ * This defines the service class for managing the JWT-Token generation.
+ */
 @Service
 @RequiredArgsConstructor
 public class TokenService {

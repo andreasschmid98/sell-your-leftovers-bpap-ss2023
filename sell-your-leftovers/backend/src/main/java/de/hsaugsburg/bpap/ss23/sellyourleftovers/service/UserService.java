@@ -2,11 +2,8 @@ package de.hsaugsburg.bpap.ss23.sellyourleftovers.service;
 
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.LoginRequest;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.RegisterRequest;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.response.CategoryResponse;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.response.ProductResponse;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.error.exception.EmailAlreadyTakenException;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.mapper.UserMapper;
-import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Product;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.User;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,17 +17,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This defines the service class for managing all user related functionalities.
+ */
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
@@ -50,7 +47,7 @@ public class UserService implements UserDetailsService {
 
     public ResponseEntity<?> register(RegisterRequest registerRequest) {
 
-        if(userRepository.existsByEmail(registerRequest.getEmail())){
+        if (userRepository.existsByEmail(registerRequest.getEmail())) {
             throw new EmailAlreadyTakenException("User with this Email does already exists");
         }
 
@@ -70,6 +67,18 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        User user = userRepository.findUserByEmail(email);
+        return user;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email)
@@ -83,18 +92,6 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
                 authorities);
-    }
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    public User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-
-        User user = userRepository.findUserByEmail(email);
-        return user;
     }
 
 }

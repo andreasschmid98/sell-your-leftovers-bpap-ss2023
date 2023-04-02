@@ -18,6 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * This defines test cases for all API-endpoints of the AuthController.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AuthControllerTest {

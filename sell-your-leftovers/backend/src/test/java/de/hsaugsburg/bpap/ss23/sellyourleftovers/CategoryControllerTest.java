@@ -13,6 +13,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * This defines test cases for all API-endpoints of the CategoryController.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class CategoryControllerTest {

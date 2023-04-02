@@ -4,6 +4,9 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * This defines the structure of an OrderRequest.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

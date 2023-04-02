@@ -39,6 +39,7 @@
           <v-text-field
               v-model="productRequest.price"
               type="number"
+              min="0"
               label="Preis in Euro"
               required
           ></v-text-field>

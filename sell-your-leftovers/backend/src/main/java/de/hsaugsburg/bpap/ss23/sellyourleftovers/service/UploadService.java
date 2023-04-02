@@ -14,6 +14,9 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This defines the service class for managing the upload functionality.
+ */
 @Service
 @RequiredArgsConstructor
 public class UploadService {
@@ -25,7 +28,7 @@ public class UploadService {
         User user = userService.getCurrentUser();
         List<ProductResponse> uploads = new ArrayList<>();
 
-        for ( Product upload : user.getUploads()) {
+        for (Product upload : user.getUploads()) {
             uploads.add(ProductMapper.map(upload));
         }
 

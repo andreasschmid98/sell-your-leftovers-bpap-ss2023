@@ -5,6 +5,9 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
+/**
+ * This defines the structure of a ProductRequest.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data

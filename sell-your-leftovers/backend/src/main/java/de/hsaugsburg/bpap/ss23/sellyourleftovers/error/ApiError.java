@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * This defines the structure of an API-error.
+ */
 @AllArgsConstructor
 @Builder
 @Getter

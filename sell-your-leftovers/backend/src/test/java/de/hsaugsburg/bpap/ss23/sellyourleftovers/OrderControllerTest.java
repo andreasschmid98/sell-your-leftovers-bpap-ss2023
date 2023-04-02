@@ -16,6 +16,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This defines test cases for all API-endpoints of the OrderController.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class OrderControllerTest {

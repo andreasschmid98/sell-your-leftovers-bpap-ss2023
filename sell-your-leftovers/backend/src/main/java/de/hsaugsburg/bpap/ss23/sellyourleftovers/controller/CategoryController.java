@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * This provides the API-endpoint for the Category model.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api/category")
@@ -18,7 +21,7 @@ public class CategoryController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CategoryResponse> getAllCategories(){
+    public List<CategoryResponse> getAllCategories() {
         return categoryService.getAllCategories();
     }
 

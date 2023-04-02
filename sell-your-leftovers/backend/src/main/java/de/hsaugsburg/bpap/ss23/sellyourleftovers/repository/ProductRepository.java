@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/**
+ * This defines the repository for the Product model.
+ */
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findProductById(Long id);
 

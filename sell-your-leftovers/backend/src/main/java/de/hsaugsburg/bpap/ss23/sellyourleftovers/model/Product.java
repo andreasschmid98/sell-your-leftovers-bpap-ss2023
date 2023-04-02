@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * This defines the structure of a Product.
+ */
 @Entity()
 @Table(name = "t_product")
 @AllArgsConstructor
@@ -38,6 +41,5 @@ public class Product {
 
     @Column(name = "category_type")
     private Category.CategoryType categoryType;
-
 
 }

@@ -4,6 +4,10 @@ import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.ProductRequest;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.response.ProductResponse;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Product;
 
+/**
+ * This provides helper functions for mapping a Product object to a ProductResponse object
+ * and a ProductRequest object to a Product object.
+ */
 public class ProductMapper {
     public static ProductResponse map(Product product) {
         return ProductResponse.builder()
@@ -17,7 +21,7 @@ public class ProductMapper {
                 .build();
     }
 
-    public static Product map(ProductRequest productRequest){
+    public static Product map(ProductRequest productRequest) {
         return Product.builder()
                 .name(productRequest.getName())
                 .imageUrl(productRequest.getImageUrl())

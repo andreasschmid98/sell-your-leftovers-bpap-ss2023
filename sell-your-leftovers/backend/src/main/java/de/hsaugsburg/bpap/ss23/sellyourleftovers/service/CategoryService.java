@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * This defines the service class for managing the Category model.
+ */
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
@@ -19,5 +22,4 @@ public class CategoryService {
         List<Category> categories = categoryRepository.findAll();
         return categories.stream().map(CategoryMapper::map).toList();
     }
-
 }

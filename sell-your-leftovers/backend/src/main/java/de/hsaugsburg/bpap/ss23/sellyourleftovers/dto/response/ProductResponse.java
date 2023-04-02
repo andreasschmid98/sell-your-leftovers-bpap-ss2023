@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * This defines the structure of a ProductResponse.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * This defines the structure of a CategoryResponse.
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

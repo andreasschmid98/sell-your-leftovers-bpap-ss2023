@@ -1,6 +1,5 @@
 package de.hsaugsburg.bpap.ss23.sellyourleftovers.config;
 
-
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -27,7 +26,9 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-
+/**
+ * This defines the security configuration.
+ */
 @Configuration
 @EnableMethodSecurity
 @RequiredArgsConstructor
@@ -36,7 +37,7 @@ public class SecurityConfig {
     private final RsaKeyProperties rsaKeyProperties;
 
     @Bean
-    public static PasswordEncoder passwordEncoder(){
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -64,7 +65,7 @@ public class SecurityConfig {
         http.cors().and().csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
                                 .anyRequest().authenticated()
 
                 )
@@ -74,4 +75,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }

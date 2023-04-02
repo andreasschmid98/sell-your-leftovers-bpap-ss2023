@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * This defines the structure of an User.
+ */
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,16 +40,18 @@ public class User {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column(name = "roles")
     private Set<Role> roles;
     @OneToMany
+    @Column(name = "orders")
     private List<Product> orders = new ArrayList<>();
 
     @ManyToMany
-    @Column
+    @Column(name = "cart_items")
     private List<Product> cartItems = new ArrayList<>();
 
     @OneToMany
-    @Column
+    @Column(name = "uploads")
     private List<Product> uploads = new ArrayList<>();
 
     public void addCartItem(Product product) {
@@ -61,7 +66,7 @@ public class User {
         orders.add(product);
     }
 
-    public void addUpload(Product product){
+    public void addUpload(Product product) {
         uploads.add(product);
     }
 
