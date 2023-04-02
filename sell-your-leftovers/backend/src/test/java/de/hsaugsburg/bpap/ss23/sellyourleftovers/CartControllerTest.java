@@ -3,6 +3,7 @@ package de.hsaugsburg.bpap.ss23.sellyourleftovers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.dto.request.CartRequest;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.service.CartService;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -44,6 +45,7 @@ public class CartControllerTest {
 
     @Test
     @WithMockUser(username = "test@test.com", password = "test")
+    @Transactional
     public void testAddCartItem() throws Exception {
 
         CartRequest cartRequest = new CartRequest(10L);
@@ -53,12 +55,11 @@ public class CartControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(cartRequest)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-
-        cartService.removeCartItem(cartRequest);
     }
 
     @Test
     @WithMockUser(username = "test@test.com", password = "test")
+    @Transactional
     public void testRemoveCartItem() throws Exception {
 
         CartRequest cartRequest = new CartRequest(22L);
@@ -68,9 +69,6 @@ public class CartControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(cartRequest)))
                 .andExpect(MockMvcResultMatchers.status().isOk());
-
-        cartService.addCartItem(cartRequest);
-
     }
 
 }
