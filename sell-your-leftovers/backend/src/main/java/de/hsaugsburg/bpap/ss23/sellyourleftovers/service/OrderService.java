@@ -19,6 +19,7 @@ public class OrderService {
     private final UserService userService;
     private final ProductService productService;
     private final CartService cartService;
+    private final EmailService emailService;
 
     public void order(OrderRequest orderRequest) {
         List<Product> products = new ArrayList<>();
@@ -29,7 +30,9 @@ public class OrderService {
         }
 
         placeOrder(products);
+        emailService.send(products);
         cartService.refreshCarts(products);
+
     }
 
     private void placeOrder(List<Product> products) {
