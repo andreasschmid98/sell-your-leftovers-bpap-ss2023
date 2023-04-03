@@ -38,6 +38,7 @@ public class UploadControllerTest {
     @Test
     @WithMockUser(username = "test@test.com", password = "test")
     public void uploadProduct() throws Exception {
+
         ProductRequest productRequest = ProductRequest
                 .builder()
                 .name("TEST_PROD_BEER")
@@ -59,7 +60,6 @@ public class UploadControllerTest {
     @Test
     @WithMockUser(username = "test@test.com", password = "test")
     public void testGetAllUploads() throws Exception {
-
         mockMvc.perform(get("/api/upload"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))

@@ -22,6 +22,7 @@ public class OrderService {
     private final EmailService emailService;
 
     public void order(OrderRequest orderRequest) {
+
         List<Product> products = new ArrayList<>();
 
         for (Long productId : orderRequest.getProductIds()) {
@@ -36,6 +37,7 @@ public class OrderService {
     }
 
     private void placeOrder(List<Product> products) {
+
         User user = userService.getCurrentUser();
 
         for (Product product : products) {
@@ -46,4 +48,5 @@ public class OrderService {
 
         userService.save(user);
     }
+
 }

@@ -31,4 +31,5 @@ public class CategoryControllerTest {
                 .andExpect(jsonPath("$", hasSize(4)))
                 .andExpect(jsonPath("$[1].name", is("Wein")));
     }
+
 }

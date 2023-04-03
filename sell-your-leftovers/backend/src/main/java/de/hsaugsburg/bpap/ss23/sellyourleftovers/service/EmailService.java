@@ -9,7 +9,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -41,14 +40,14 @@ public class EmailService {
 
 
         for (User user : allUsers) {
-           if (user.getUploads().stream().anyMatch(products::contains)) {
-               sellers.add(user);
-           }
+            if (user.getUploads().stream().anyMatch(products::contains)) {
+                sellers.add(user);
+            }
         }
 
         sendToBuyer(buyer.getEmail(), products);
 
-        for(User seller : sellers){
+        for (User seller : sellers) {
             sendToSeller(seller.getEmail());
         }
     }
@@ -88,4 +87,5 @@ public class EmailService {
 
         return invoice;
     }
+
 }

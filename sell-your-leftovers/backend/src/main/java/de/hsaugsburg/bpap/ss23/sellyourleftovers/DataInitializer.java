@@ -30,6 +30,7 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        // Categories
         Category beer = new Category(1L, Category.CategoryType.BEER, "Bier");
         Category wine = new Category(2L, Category.CategoryType.WINE, "Wein");
         Category spirits = new Category(3L, Category.CategoryType.SPIRITS, "Spirituosen");
@@ -40,6 +41,7 @@ public class DataInitializer implements CommandLineRunner {
         categoryRepository.save(spirits);
         categoryRepository.save(nonAlcoholic);
 
+        // Products
         productRepository.save(new Product(1L, "Wodka Gorbatschow 200ml", "https://iili.io/HwltObI.jpg", "Der Wodka Gorbatschow ist ein hochwertiger Wodka aus Deutschland, der aus feinstem Weizen hergestellt wird. Er zeichnet sich durch sein mildes und zugleich würziges Aroma aus. Durch seine vielseitige Verwendungsmöglichkeiten eignet er sich perfekt zum Mixen von Cocktails oder als Begleiter zu einem eleganten Dinner. Ein absoluter Klassiker unter den Wodkas!", new BigDecimal(3), true, Category.CategoryType.SPIRITS));
         productRepository.save(new Product(2L, "Ramero Rum Blanco 3x 500ml", "https://iili.io/Hwltkxt.webp", "Der Ramero Rum Blanco ist ein erfrischender Rum aus der Karibik, der aus besten Zuckerrohrmelassen hergestellt wird. Er besticht durch seine klare, kristalline Farbe und sein leicht süßes Aroma mit einem Hauch von Vanille und tropischen Früchten. Der Rum eignet sich hervorragend zum Mixen von Cocktails oder als Basis für erfrischende Longdrinks. Ein idealer Begleiter für warme Sommerabende oder entspannte Stunden auf der Terrasse.", new BigDecimal(49.99), true, Category.CategoryType.SPIRITS));
         productRepository.save(new Product(3L, "Sprizzero Bitterorange 10x 300ml", "https://iili.io/Hwlt8sn.jpg", "Der Sprizzero Bitterorange ist ein erfrischendes und belebendes Getränk, das aus natürlichen Zutaten hergestellt wird. Er vereint den herben Geschmack von Bitterorangen mit einer angenehmen Süße und einem Hauch von Kräutern. Der Sprizzero Bitterorange eignet sich perfekt als Aperitif oder als Begleiter zu einem entspannten Abend mit Freunden. Ein unverwechselbares Geschmackserlebnis, das Sie sich nicht entgehen lassen sollten.", new BigDecimal(12.00), true, Category.CategoryType.SPIRITS));

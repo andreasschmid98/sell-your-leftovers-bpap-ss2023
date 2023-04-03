@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @CrossOrigin
-@RequiredArgsConstructor
 @RequestMapping("/api/order")
+@RequiredArgsConstructor
 public class OrderController {
 
     private final OrderService orderService;

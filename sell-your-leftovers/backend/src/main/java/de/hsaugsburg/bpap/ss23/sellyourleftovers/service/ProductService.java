@@ -1,6 +1,5 @@
 package de.hsaugsburg.bpap.ss23.sellyourleftovers.service;
 
-
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.error.exception.ResourceNotFoundException;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.mapper.ProductMapper;
 import de.hsaugsburg.bpap.ss23.sellyourleftovers.model.Product;

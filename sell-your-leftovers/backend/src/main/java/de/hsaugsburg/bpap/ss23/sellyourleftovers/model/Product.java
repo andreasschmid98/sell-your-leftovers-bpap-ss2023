@@ -12,11 +12,11 @@ import java.math.BigDecimal;
  * This defines the structure of a Product.
  */
 @Entity()
-@Table(name = "t_product")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
+@Table(name = "t_product")
 public class Product {
 
     @Id
