@@ -61,7 +61,7 @@
     </div>
     <div class="text-center my-4">
       <div class="row justify-content-center">
-        <div class="col col-3">
+        <div class="col col-3 col-sm-4">
           <v-dialog
               v-model="showDialog"
               width="auto"
@@ -129,7 +129,7 @@ export default {
   },
   methods: {
     getAllCartItems() {
-      CartService.getAllCartItems().then((response) => {
+      CartService.getAllCartItems().then(response => {
         this.cartItems = response.data
         this.setCartSum()
       })
@@ -142,7 +142,6 @@ export default {
 
       this.orderFailed = await OrderService.order(this.orderRequest).then(response => {
             if (response.status === 200) {
-              console.log("success")
               return false
             }
           }

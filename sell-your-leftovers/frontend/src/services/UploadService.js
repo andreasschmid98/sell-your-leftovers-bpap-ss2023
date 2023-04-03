@@ -1,21 +1,25 @@
-import axios from "axios";
-import {useAuthStore} from "@/stores/auth";
+import axios from "axios"
+import {useAuthStore} from "@/stores/auth"
 
-const UPLOAD_API_URL = 'http://localhost:8080/api/upload';
+/**
+ * This defines the service class calling the upload-API-endpoint.
+ */
+
+const UPLOAD_API_URL = 'http://localhost:8080/api/upload'
 
 class UploadService {
 
-    getAllUploads(){
+    getAllUploads() {
         return axios.get(UPLOAD_API_URL, {
-            headers: { Authorization: 'Bearer ' + useAuthStore().token }
-        });
+            headers: {Authorization: 'Bearer ' + useAuthStore().token}
+        })
     }
 
-    uploadProduct(productRequest){
+    uploadProduct(productRequest) {
         return axios.post(UPLOAD_API_URL, productRequest, {
-            headers: { Authorization: 'Bearer ' + useAuthStore().token }
+            headers: {Authorization: 'Bearer ' + useAuthStore().token}
         })
     }
 }
 
-export default new UploadService();
+export default new UploadService()

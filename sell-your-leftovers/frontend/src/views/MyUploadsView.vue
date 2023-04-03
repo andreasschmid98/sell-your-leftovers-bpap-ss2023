@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     getAllUploads() {
-      UploadService.getAllUploads().then((response) => {
+      UploadService.getAllUploads().then(response => {
         this.uploads = response.data
       })
     }

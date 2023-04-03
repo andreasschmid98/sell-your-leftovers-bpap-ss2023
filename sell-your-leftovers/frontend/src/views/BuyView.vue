@@ -93,12 +93,12 @@ export default {
   },
   methods: {
     getAllProducts() {
-      ProductService.getAllProducts().then((response) => {
+      ProductService.getAllProducts().then(response => {
         this.products = response.data;
       });
     },
     getAllCartItems() {
-      CartService.getAllCartItems().then((response) => {
+      CartService.getAllCartItems().then(response => {
         this.cartItems = response.data;
       })
     },
@@ -134,7 +134,7 @@ export default {
       if (categoryType === undefined) {
         this.getAllProducts()
       } else {
-        ProductService.getAllProducts().then((response) => {
+        ProductService.getAllProducts().then(response => {
           this.products = response.data.filter(product => product.categoryType === categoryType)
         })
       }

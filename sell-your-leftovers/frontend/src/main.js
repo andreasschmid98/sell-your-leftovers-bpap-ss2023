@@ -1,12 +1,16 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
-import {createPinia} from "pinia";
+import {createPinia} from "pinia"
 import vuetify from './plugins/vuetify'
 import {loadFonts} from './plugins/webfontloader'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+/**
+ * This provides the starting point of the Vue-Application.
+ */
 
 loadFonts()
 

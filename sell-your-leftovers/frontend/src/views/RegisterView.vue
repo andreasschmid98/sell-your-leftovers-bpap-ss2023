@@ -26,7 +26,6 @@
               required
           ></v-text-field>
         </v-row>
-
         <v-row class="mx-6">
           <v-text-field
               v-model="registerRequest.lastName"

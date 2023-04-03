@@ -1,14 +1,18 @@
-import axios from "axios";
+import axios from "axios"
 
-const AUTH_API_URL = 'http://localhost:8080/api/auth';
+/**
+ * This defines the service class calling the auth-API-endpoint.
+ */
+
+const AUTH_API_URL = 'http://localhost:8080/api/auth'
 
 class AuthService {
 
-    login(loginRequest){
-        return axios.post(AUTH_API_URL + "/login", loginRequest);
+    login(loginRequest) {
+        return axios.post(AUTH_API_URL + "/login", loginRequest)
     }
 
-    register(registerRequest){
+    register(registerRequest) {
         return axios.post(AUTH_API_URL + "/register", registerRequest)
     }
 

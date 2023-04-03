@@ -68,9 +68,9 @@ public class DataInitializer implements CommandLineRunner {
 
         // Test users for debugging
         userRepository.save(new User(1L, "test", "test", "test@test.de", passwordEncoder.encode("test"), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
-        userRepository.save(new User(1L, "Andreas", "Schmid", "schmidandreas.ul@gmail.com", passwordEncoder.encode("test"), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        userRepository.save(new User(2L, "Andreas", "Schmid", "schmidandreas.ul@gmail.com", passwordEncoder.encode("test"), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
 
         // Test user only for testing the api endpoints
-        userRepository.save(new User(2L, "test", "test", "test@test.com", passwordEncoder.encode("test"), null, new ArrayList<>(), new ArrayList<>(List.of(productRepository.findProductById(22L))), new ArrayList<>(List.of(productRepository.findProductById(1L)))));
+        userRepository.save(new User(3L, "test", "test", "test@test.com", passwordEncoder.encode("test"), null, new ArrayList<>(), new ArrayList<>(List.of(productRepository.findProductById(22L))), new ArrayList<>(List.of(productRepository.findProductById(1L)))));
     }
 }

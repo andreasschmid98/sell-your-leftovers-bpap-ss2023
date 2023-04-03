@@ -66,12 +66,12 @@ export default {
   },
   methods: {
     getProductById(id) {
-      ProductService.getProductById(id).then((response) => {
+      ProductService.getProductById(id).then(response => {
         this.product = response.data
       })
     },
     getAllCartItems() {
-      CartService.getAllCartItems().then((response) => {
+      CartService.getAllCartItems().then(response => {
         this.cartItems = response.data
       })
     },

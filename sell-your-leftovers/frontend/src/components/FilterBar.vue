@@ -1,4 +1,5 @@
 <template>
+
   <v-card
       class="mx-auto"
       max-width="300"
@@ -22,9 +23,11 @@
       </v-list-item-group>
     </v-list>
   </v-card>
+
 </template>
 
 <script>
+
 import CategoryService from "@/services/CategoryService"
 
 export default {
@@ -36,8 +39,8 @@ export default {
   },
   methods: {
     getAllCategories() {
-      CategoryService.getAllCategories().then((response) => {
-        this.categories = response.data;
+      CategoryService.getAllCategories().then(response => {
+        this.categories = response.data
       })
     },
     onCategory(categoryType) {
@@ -48,5 +51,6 @@ export default {
     this.getAllCategories()
   }
 }
+
 </script>
 

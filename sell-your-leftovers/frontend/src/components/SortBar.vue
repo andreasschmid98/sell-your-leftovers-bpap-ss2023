@@ -1,4 +1,5 @@
 <template>
+
   <v-menu>
     <template v-slot:activator="{ props }">
       <v-btn
@@ -19,9 +20,11 @@
       </v-list-item>
     </v-list>
   </v-menu>
+
 </template>
 
 <script>
+
 export default {
   name: "SortBar",
   data() {
@@ -38,5 +41,6 @@ export default {
     }
   }
 }
+
 </script>
 

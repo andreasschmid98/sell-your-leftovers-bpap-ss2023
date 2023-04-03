@@ -1,13 +1,17 @@
 import HomeView from '../views/HomeView.vue'
-import BuyView from "@/views/BuyView.vue";
-import ProductView from "@/views/ProductView.vue";
-import LoginView from "@/views/LoginView.vue";
-import CartView from "@/views/CartView.vue";
-import UploadView from "@/views/UploadView.vue";
-import MyUploadsView from "@/views/MyUploadsView.vue";
-import RegisterView from "@/views/RegisterView.vue";
-import {useAuthStore} from "@/stores/auth";
-import {createRouter, createWebHistory} from "vue-router";
+import BuyView from "@/views/BuyView.vue"
+import ProductView from "@/views/ProductView.vue"
+import LoginView from "@/views/LoginView.vue"
+import CartView from "@/views/CartView.vue"
+import UploadView from "@/views/UploadView.vue"
+import MyUploadsView from "@/views/MyUploadsView.vue"
+import RegisterView from "@/views/RegisterView.vue"
+import {useAuthStore} from "@/stores/auth"
+import {createRouter, createWebHistory} from "vue-router"
+
+/**
+ * This manages all routes.
+ */
 
 const routes = [
   {

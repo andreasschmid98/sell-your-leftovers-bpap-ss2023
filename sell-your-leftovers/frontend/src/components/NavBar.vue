@@ -1,4 +1,5 @@
 <template>
+
   <v-app-bar class="bg-orange-darken-1">
     <v-container>
       <v-row>
@@ -37,9 +38,11 @@
       </v-row>
     </v-container>
   </v-app-bar>
+
 </template>
 
 <script>
+
 import {useAuthStore} from "@/stores/auth"
 
 export default {
@@ -50,5 +53,6 @@ export default {
     }
   }
 }
+
 </script>
 

@@ -40,12 +40,13 @@
               v-model="productRequest.price"
               type="number"
               min="0"
+              :rules="[v => !!v || 'Preis ist ein Pflichtfeld']"
               label="Preis in Euro"
               required
           ></v-text-field>
           <v-checkbox
               v-model="acceptUpload"
-              :rules="[v => !!v || 'Du musst dem Verkauf zustimmen!']"
+              :rules="[v => !!v || '']"
               label="Willst Du das Produkt wirklich verkaufen?"
               class="mb-2"
               required
@@ -120,7 +121,7 @@ export default {
   },
   methods: {
     getAllCategories() {
-      CategoryService.getAllCategories().then((response) => {
+      CategoryService.getAllCategories().then(response => {
         this.categories = response.data;
         this.categoryItems = this.categories.map(({name}) => name)
       })

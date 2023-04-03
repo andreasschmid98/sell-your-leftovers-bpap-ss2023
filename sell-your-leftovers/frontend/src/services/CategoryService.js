@@ -1,13 +1,17 @@
-import axios from "axios";
-import {useAuthStore} from "@/stores/auth";
+import axios from "axios"
+import {useAuthStore} from "@/stores/auth"
 
-const CATEGORY_API_URL = 'http://localhost:8080/api/category';
+/**
+ * This defines the service class calling the category-API-endpoint.
+ */
 
-class CategoryService{
+const CATEGORY_API_URL = 'http://localhost:8080/api/category'
 
-    getAllCategories(){
+class CategoryService {
+
+    getAllCategories() {
         return axios.get(CATEGORY_API_URL, {
-            headers: { Authorization: 'Bearer ' + useAuthStore().token }
+            headers: {Authorization: 'Bearer ' + useAuthStore().token}
         })
     }
 }

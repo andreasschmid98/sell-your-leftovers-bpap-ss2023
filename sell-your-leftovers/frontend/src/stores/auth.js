@@ -1,10 +1,14 @@
-import {defineStore} from 'pinia';
-import router from '@/router';
-import AuthService from "@/services/AuthService";
+import {defineStore} from 'pinia'
+import router from '@/router'
+import AuthService from "@/services/AuthService"
+
+/**
+ * This manages the authentication process including the storage of the JWT-token.
+ */
 
 export const useAuthStore = defineStore({
     id: 'auth',
-    state: () => {
+    state() {
         return {
             user: localStorage.getItem('user') ? localStorage.getItem('user') : null,
             token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
@@ -13,7 +17,8 @@ export const useAuthStore = defineStore({
     },
     actions: {
         login(email, password) {
-            AuthService.login(JSON.parse(JSON.stringify({email: email, password: password}))).then((response) => {
+
+            AuthService.login(JSON.parse(JSON.stringify({email: email, password: password}))).then(response => {
 
                 if (response.status === 200) {
                     const token = response.data
@@ -25,7 +30,7 @@ export const useAuthStore = defineStore({
                 } else {
                     throw new Error('Invalid credentials')
                 }
-            });
+            })
         },
         logout() {
             this.user = ''

@@ -1,11 +1,15 @@
-import axios from "axios";
-import {useAuthStore} from "@/stores/auth";
+import axios from "axios"
+import {useAuthStore} from "@/stores/auth"
 
-const CART_API_URL = 'http://localhost:8080/api/cart';
+/**
+ * This defines the service class calling the cart-API-endpoint.
+ */
+
+const CART_API_URL = 'http://localhost:8080/api/cart'
 
 class CartService {
 
-    getAllCartItems(){
+    getAllCartItems() {
         return axios.get(CART_API_URL, {
             headers: {
                 Authorization: 'Bearer ' + useAuthStore().token
@@ -13,7 +17,7 @@ class CartService {
         })
     }
 
-    addCartItem(cartRequest){
+    addCartItem(cartRequest) {
         return axios.post(CART_API_URL + "/add", cartRequest, {
             headers: {
                 Authorization: 'Bearer ' + useAuthStore().token
@@ -21,7 +25,7 @@ class CartService {
         })
     }
 
-    removeCartItem(cartRequest){
+    removeCartItem(cartRequest) {
         return axios.post(CART_API_URL + "/remove", cartRequest, {
             headers: {
                 Authorization: 'Bearer ' + useAuthStore().token
@@ -31,4 +35,4 @@ class CartService {
 
 }
 
-export default new CartService();
+export default new CartService()

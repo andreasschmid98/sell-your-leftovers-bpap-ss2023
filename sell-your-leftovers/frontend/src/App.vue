@@ -30,8 +30,8 @@ export default {
     NavBar
   },
   computed: {
-    hideNavAndFooter () {
-      return this.$route.path === '/login' || this.$route.path === '/register';
+    hideNavAndFooter() {
+      return this.$route.path === '/login' || this.$route.path === '/register'
     }
   }
 }
