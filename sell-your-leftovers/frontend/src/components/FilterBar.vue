@@ -31,7 +31,7 @@
 import CategoryService from "@/services/CategoryService"
 
 export default {
-  name: 'FilterBarView',
+  name: 'FilterBar',
   data() {
     return {
       categories: []
