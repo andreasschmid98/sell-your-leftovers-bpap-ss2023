@@ -66,11 +66,15 @@ public class DataInitializer implements CommandLineRunner {
         productRepository.save(new Product(22L, "Süß und Fruchtig Mix 6x 700ml", "https://iili.io/Hwl6rue.png", "\"Süß und fruchtig\" ist eine Bezeichnung für Weine, die durch ihre süße Note und fruchtigen Aromen überzeugen. Diese Weine können sowohl Weißweine als auch Rotweine umfassen und werden oft aus spät gelesenen Trauben hergestellt. Sie eignen sich perfekt als Aperitif oder Begleiter zu Desserts und können auch als leichter Durstlöscher an heißen Tagen dienen. \"Süß und fruchtig\" Weine sind beliebt bei Weinliebhabern, die ein süßeres Geschmacksprofil bevorzugen.", new BigDecimal(16.99), true, Category.CategoryType.WINE));
         productRepository.save(new Product(22L, "Württemberg Qualitätswein rot 6x 700ml", "https://iili.io/Hwl66Zb.png", "Württemberg Qualitätswein Rot ist ein Rotwein aus der Region Württemberg in Süddeutschland, der aus ausgewählten roten Trauben hergestellt wird. Der Wein zeichnet sich durch sein tiefes Rot und seinen vollen Geschmack aus, der von Aromen von dunklen Beeren und Gewürzen geprägt ist. Württemberg Qualitätswein Rot eignet sich perfekt als Begleiter zu kräftigen Fleischgerichten oder würzigem Käse. Ein qualitativ hochwertiger Rotwein aus einer renommierten Weinregion, der durch seine Aromenvielfalt und seine Tanninstruktur überzeugt.", new BigDecimal(19.99), true, Category.CategoryType.WINE));
 
-        // Test users for debugging
+        // Test users
         userRepository.save(new User(1L, "test", "test", "test@test.de", passwordEncoder.encode("test"), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
         userRepository.save(new User(2L, "Andreas", "Schmid", "schmidandreas.ul@gmail.com", passwordEncoder.encode("test"), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
 
         // Test user only for testing the api endpoints
         userRepository.save(new User(3L, "test", "test", "test@test.com", passwordEncoder.encode("test"), null, new ArrayList<>(), new ArrayList<>(List.of(productRepository.findProductById(22L))), new ArrayList<>(List.of(productRepository.findProductById(1L)))));
+
+        // Test user for grading
+        userRepository.save(new User(4L, "test", "test", "erich.seifert@hs-augsburg.de", passwordEncoder.encode("test"), null, new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+
     }
 }
